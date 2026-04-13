@@ -1,0 +1,22 @@
+{
+  "name": "Simooo TV Official",
+  "short_name": "SimoooTV",
+  "description": "Sito Ufficiale di Simooo_Tv",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#080808",
+  "theme_color": "#9146FF",
+  "icons": [
+    {
+      "src": "logo.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "logo.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
