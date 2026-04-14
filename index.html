@@ -73,16 +73,46 @@
         .logo-text { flex: 0 1 auto; order: 2; font-weight: 900; letter-spacing: 3px; text-shadow: 0 0 10px var(--twitch); font-size: 1.2rem; white-space: nowrap; text-align: center; }
 
         .nav-right { flex: 1; display: flex; justify-content: flex-end; order: 3; }
+/* Bottone Nav Prime - Effetto Luminoso */
+.nav-prime-btn {
+    background: #00A8E1; 
+    color: var(--white); /* Se non funziona, cambia in #ffffff */
+    
+    /* Rimuove qualsiasi riga (sottolineatura) dal testo */
+    text-decoration: none; 
+    
+    /* Effetto Neon / Luminoso potenziato a 3 strati */
+    box-shadow: 0 0 10px rgba(0, 168, 225, 0.7), 
+                0 0 20px rgba(0, 168, 225, 0.5),
+                0 0 30px rgba(0, 168, 225, 0.3);
+                
+    padding: 10px 20px; 
+    font-size: 0.9rem; 
+    border-radius: 8px; 
+    font-family: 'Orbitron', sans-serif;
+    border: none; 
+    cursor: pointer; 
+    transition: all 0.3s ease-in-out; 
+    font-weight: bold; 
+    white-space: nowrap;
+    display: inline-flex; 
+    align-items: center; 
+    justify-content: center;
+    gap: 8px;
+    
+    /* Leggera ombra bianca sul testo per farlo brillare di più */
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.4);
+}
 
-        /* Bottone Nav Prime */
-        .nav-prime-btn {
-            background: #00A8E1; color: var(--white); box-shadow: 0 0 15px rgba(0, 168, 225, 0.4);
-            padding: 10px 20px; font-size: 0.9rem; border-radius: 8px; font-family: 'Orbitron', sans-serif;
-            border: none; cursor: pointer; transition: 0.3s; font-weight: bold; white-space: nowrap;
-            display: flex; align-items: center; gap: 8px;
-        }
-        .nav-prime-btn:hover { transform: translateY(-2px); filter: brightness(1.2); }
-
+.nav-prime-btn:hover { 
+    transform: translateY(-3px); 
+    background: #17bfff; /* Diventa leggermente più chiaro al passaggio del mouse */
+    
+    /* L'alone luminoso esplode e diventa più grande quando ci passi sopra */
+    box-shadow: 0 0 15px rgba(23, 191, 255, 0.8), 
+                0 0 30px rgba(23, 191, 255, 0.6),
+                0 0 45px rgba(23, 191, 255, 0.4);
+}
         /* Marquee Giochi */
         .games-database {
             margin-top: 100px;
@@ -363,7 +393,7 @@
                 <a href="https://instagram.com/simooo_tv" target="_blank" class="social-item"><i class="fab fa-instagram" style="color:var(--instagram);"></i><span>Instagram</span></a>
                 <a href="https://tiktok.com/@simooo_tv" target="_blank" class="social-item"><i class="fab fa-tiktok"></i><span>TikTok</span></a>
                 <a href="https://youtube.com/@simooo_tv" target="_blank" class="social-item"><i class="fab fa-youtube" style="color:#ff0000;"></i><span>YouTube</span></a>
-                <a href="https://discord.gg/3uaZWZFgv" target="_blank" class="social-item"><i class="fab fa-discord" style="color:#7289da;"></i><span>Discord</span></a>
+                <a href="https://discord.gg/837xJyh6Ap" target="_blank" class="social-item"><i class="fab fa-discord" style="color:#7289da;"></i><span>Discord</span></a>
                 <a href="https://twitch.tv/simooo_tv" target="_blank" class="social-item twitch-modal-btn"><i class="fab fa-twitch" style="color:#9146FF;"></i><span>Twitch</span></a>
             </div>
             <button class="close-modal" onclick="toggleModal()">TORNA INDIETRO</button>
@@ -408,7 +438,7 @@
             <li><a href="https://twitch.tv/simooo_tv" target="_blank"><i class="fab fa-twitch"></i></a></li>
             <li><a href="https://tiktok.com/@simooo_tv" target="_blank"><i class="fab fa-tiktok"></i></a></li>
             <li><a href="https://youtube.com/@simooo_tv" target="_blank"><i class="fab fa-youtube"></i></a></li>
-            <li><a href="https://discord.gg/3uaZWZFgv" target="_blank"><i class="fab fa-discord"></i></a></li>
+            <li><a href="https://discord.gg/837xJyh6Ap" target="_blank"><i class="fab fa-discord"></i></a></li>
         </ul>
         <div class="logo-text">SIMOOO_TV</div>
         <div class="nav-right">
@@ -455,7 +485,7 @@
                 <a href="https://twitch.tv/simooo_tv" target="_blank"><i class="fab fa-twitch"></i></a>
                 <a href="https://tiktok.com/@simooo_tv" target="_blank"><i class="fab fa-tiktok"></i></a>
                 <a href="https://youtube.com/@simooo_tv" target="_blank"><i class="fab fa-youtube"></i></a>
-                 <a href="https://discord.gg/3uaZWZFgv" target="_blank"><i class="fab fa-discord"></i></a>
+                 <a href="https://discord.gg/837xJyh6Ap" target="_blank"><i class="fab fa-discord"></i></a>
             </div>
 
             <div class="hero-support-btn">
