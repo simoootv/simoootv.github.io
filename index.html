@@ -34,7 +34,8 @@
             --neon-pink: #ff00ff;
             --black: #050505;
             --white: #ffffff;
-            --glass: rgba(255, 255, 255, 0.1);
+            --glass: rgba(255, 255, 255, 0.05);
+            --border-glass: rgba(145, 70, 255, 0.3);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -44,6 +45,7 @@
             font-family: 'Orbitron', sans-serif;
             color: var(--white);
             overflow-x: hidden;
+            scroll-behavior: smooth;
         }
 
         /* Effetto Disturbo CRT Background */
@@ -132,8 +134,7 @@
         .hero-title span { color: transparent; -webkit-text-stroke: 2px var(--neon-pink); }
         .hero-title .live-text { display: block; font-size: clamp(1.5rem, 5vw, 2.5rem); color: var(--twitch); -webkit-text-stroke: 0; margin-top: 10px; }
 
-        .countdown-container { display: none; margin-bottom: 25px; font-size: 1.1rem; letter-spacing: 2px; color: #aaa; transition: 0.3s; }
-        .countdown-container #countdown-title { display: block; transition: 0.3s; }
+        .countdown-container { display: none; margin-bottom: 25px; font-size: 1.1rem; letter-spacing: 2px; color: #aaa; }
         .countdown-container .time { display: block; font-size: clamp(1.8rem, 5vw, 2.8rem); color: var(--neon-pink); font-weight: 900; text-shadow: 0 0 15px var(--neon-pink); margin-top: 5px; }
 
         .btn-live {
@@ -154,10 +155,66 @@
             overflow: hidden; background: #000; box-shadow: 0 0 30px rgba(145, 70, 255, 0.4); margin: 0 auto;
         }
 
+        /* Nuova Sezione Chi Sono & Specs */
+        .info-section {
+            padding: 80px 5%;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .info-card {
+            background: var(--glass);
+            border: 1px solid var(--border-glass);
+            padding: 30px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+        }
+
+        .info-card h2 { color: var(--neon-pink); margin-bottom: 20px; font-size: 1.5rem; letter-spacing: 2px; }
+        .info-card p { line-height: 1.6; color: #ccc; margin-bottom: 20px; }
+
+        .specs-list { list-style: none; }
+        .specs-list li { 
+            padding: 10px 0; 
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+        }
+        .specs-list li span { color: var(--twitch); font-weight: bold; }
+
+        /* Sezione Supporto */
+        .support-section {
+            padding: 60px 5%;
+            text-align: center;
+            background: linear-gradient(0deg, rgba(145, 70, 255, 0.1), transparent);
+        }
+
+        .support-box {
+            max-width: 600px;
+            margin: 0 auto;
+            border: 2px dashed var(--twitch);
+            padding: 40px;
+            border-radius: 30px;
+        }
+
         /* Calendario */
         .calendar-section { padding: 80px 5%; text-align: center; border-top: 1px solid rgba(145, 70, 255, 0.2); }
         .calendar-container { max-width: 800px; margin: 0 auto; border: 3px solid var(--twitch); border-radius: 25px; overflow: hidden; background: #000; box-shadow: 0 0 20px var(--twitch); }
         .calendar-img { width: 100%; height: auto; display: block; transition: 0.5s; }
+
+        /* Footer */
+        footer {
+            padding: 50px 5%;
+            text-align: center;
+            border-top: 1px solid var(--border-glass);
+            background: #000;
+            color: #555;
+            font-size: 0.8rem;
+        }
 
         /* Modal Social */
         .modal-overlay {
@@ -177,6 +234,7 @@
             .hero { flex-direction: row; text-align: left; padding: 80px 5%; justify-content: space-between; }
             .status-container { justify-content: flex-start; }
             .hero-socials { justify-content: flex-start; }
+            .info-section { grid-template-columns: 1fr 1fr; }
         }
     </style>
 </head>
@@ -230,11 +288,10 @@
                 <div id="live-badge" class="live-badge"><i class="fab fa-twitch"></i> ORA IN ONDA</div>
                 <a href="https://twitch.tv/simooo_tv" target="_blank" id="status-btn" class="btn-live">Caricamento...</a>
             </div>
-            
             <h1 class="hero-title" id="main-title">SIMOOO<span>TV</span></h1>
             
             <div id="countdown-wrapper" class="countdown-container">
-                <span id="countdown-title">PROSSIMA STREAM TRA:</span>
+                <span id="countdown-text">PROSSIMA STREAM TRA:</span>
                 <span class="time" id="countdown-timer">--h --m --s</span>
             </div>
             
@@ -250,12 +307,48 @@
         </div>
     </section>
 
+    <section class="info-section">
+        <div class="info-card">
+            <h2>CHI SONO</h2>
+            <p>È arrivata l’ora di farti scoprire chi sono!
+Mi chiamo Simone (alcuni mi chiamano honey), sì, proprio come il miele, ma puoi chiamarmi come ti è più comodo.
+Abito vicino a Torino (tranquillo, non sono un polentone… sono uno di voi 🫵).
+Ho 20 anni, proprio come te qualche anno fa… o tra qualche anno.
+Amo regalare risate a chi mi guarda e dare una mano a chi ne ha bisogno.
+Quindi non fare il timido: dopo aver letto questa biografia, per la quale ho spremuto il cervello fino all’ultima goccia, ti aspetto in chat per sparare stronzate insieme!</p>
+            <p>Non dimenticare di seguirmi sui social per rimanere aggiornato su clip esclusive e annunci!</p>
+        </div>
+        <div class="info-card">
+            <h2>IL MIO PC</h2>
+            <ul class="specs-list">
+                <li>CPU: <span>i7-14700k</span></li>
+                <li>SCHEDA MADRE: <span>NZXT N7 Z790 </span></li>
+                 <li>SCHEDA VIDEO: <span>GeForce RTX 5070 ti 16 gb</span></li>
+                <li>RAM: <span>Silicon Power DDR5 64gb</span></li>
+                <li>Alimentatore: <span>MSI MAG A850GL 850W</span></li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="support-section">
+        <div class="support-box">
+            <h2 class="db-title" style="margin-bottom: 15px;">SUPPORTA IL CANALE</h2>
+            <p style="margin-bottom: 25px; color: #aaa;">Abbonati o fai una donazione per migliorare la qualità delle stream!</p>
+            <a href="https://twitch.tv/simooo_tv/subscribe" target="_blank" class="btn-live btn-explore">ABBONATI ORA</a>
+        </div>
+    </section>
+
     <section class="calendar-section">
-        <div class="db-title">CALENDARIO</div>
+        <div class="db-title">CALENDARIO SETTIMANALE</div>
         <div class="calendar-container">
             <img src="img/calendario.jpg" alt="Calendario" class="calendar-img">
         </div>
     </section>
+
+    <footer>
+        <p>© 2026 SIMOOO_TV | SITO UFFICIALE®</p>
+        <p style="margin-top: 10px; font-size: 0.7rem;">Creato con passione per la community.</p>
+    </footer>
 
     <script src="https://embed.twitch.tv/embed/v1.js"></script>
     <script>
@@ -291,81 +384,56 @@
                 btn.href = "#";
                 btn.onclick = (e) => { e.preventDefault(); toggleModal(); };
                 badge.style.display = "none";
-                // Aggiunto per soddisfare la richiesta "SIMOOO_TV OFFLINE"
                 title.innerHTML = "SIMOOO_TV <br><span>OFFLINE</span>";
             }
         }
 
-        // Funzione per calcolare se siamo in periodo live, in attesa, o lontani
-        function getStreamStatus() {
+        function getNextLiveTime() {
             const now = new Date();
-            const currentHour = now.getHours();
-            const currentMinute = now.getMinutes();
-            const timeInMinutes = currentHour * 60 + currentMinute;
+            const time1 = new Date(now); time1.setHours(14, 30, 0, 0);
+            const time1End = new Date(now); time1End.setHours(16, 0, 0, 0);
+            const time2 = new Date(now); time2.setHours(20, 45, 0, 0);
+            const time2End = new Date(now); time2End.setHours(22, 15, 0, 0);
 
-            // Fascia Pomeridiana: dalle 14:30 alle 16:00 (Finestra d'attesa)
-            const time1 = 14 * 60 + 30; // 870 minuti
-            const time1End = 16 * 60 + 0; // 960 minuti
-
-            // Fascia Serale: dalle 20:45 alle 22:15 (Finestra d'attesa)
-            const time2 = 20 * 60 + 45; // 1245 minuti
-            const time2End = 22 * 60 + 15; // 1335 minuti
-
-            if (timeInMinutes >= time1 && timeInMinutes <= time1End) {
-                return { state: "SOON" };
-            } else if (timeInMinutes >= time2 && timeInMinutes <= time2End) {
-                return { state: "SOON" };
-            } else if (timeInMinutes < time1) {
-                let t = new Date(now); t.setHours(14, 30, 0, 0);
-                return { state: "COUNTDOWN", target: t };
-            } else if (timeInMinutes > time1End && timeInMinutes < time2) {
-                let t = new Date(now); t.setHours(20, 45, 0, 0);
-                return { state: "COUNTDOWN", target: t };
-            } else {
-                let t = new Date(now);
-                t.setDate(t.getDate() + 1);
-                t.setHours(14, 30, 0, 0);
-                return { state: "COUNTDOWN", target: t };
-            }
+            if (now >= time1 && now <= time1End) return "SOON";
+            if (now >= time2 && now <= time2End) return "SOON";
+            
+            if (now < time1) return time1;
+            if (now < time2) return time2;
+            
+            const tomorrow = new Date(now);
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            tomorrow.setHours(14, 30, 0, 0);
+            return tomorrow;
         }
 
         function startCountdown() {
             const wrapper = document.getElementById('countdown-wrapper');
-            const titleElement = document.getElementById('countdown-title');
+            const countdownText = document.getElementById('countdown-text');
             const timerElement = document.getElementById('countdown-timer');
             
             wrapper.style.display = 'block';
             if (countdownInterval) clearInterval(countdownInterval);
-
+            
             const update = () => {
-                const status = getStreamStatus();
-
-                if (status.state === "SOON") {
-                    // Mostra la scritta "LA LIVE INIZIERA' A BREVE"
-                    titleElement.innerText = "LA LIVE INIZIERÀ A BREVE!";
-                    titleElement.style.color = "var(--neon-pink)";
-                    titleElement.style.fontWeight = "900";
-                    titleElement.style.fontSize = "1.5rem";
-                    titleElement.style.textShadow = "0 0 10px var(--neon-pink)";
-                    timerElement.style.display = "none";
+                const target = getNextLiveTime();
+                
+                if (target === "SOON") {
+                    countdownText.innerText = "LA LIVE INIZIERÀ A BREVE!";
+                    countdownText.style.color = "var(--neon-pink)";
+                    timerElement.style.display = 'none';
                 } else {
-                    // Mostra il timer di conto alla rovescia standard
-                    titleElement.innerText = "PROSSIMA STREAM TRA:";
-                    titleElement.style.color = "#aaa";
-                    titleElement.style.fontWeight = "normal";
-                    titleElement.style.fontSize = "1.1rem";
-                    titleElement.style.textShadow = "none";
-                    timerElement.style.display = "block";
-
-                    const diff = status.target - new Date();
+                    countdownText.innerText = "PROSSIMA STREAM TRA:";
+                    countdownText.style.color = "#aaa";
+                    timerElement.style.display = 'block';
+                    
+                    const diff = target - new Date();
                     const h = Math.floor((diff / 3600000) % 24).toString().padStart(2, '0');
                     const m = Math.floor((diff / 60000) % 60).toString().padStart(2, '0');
                     const s = Math.floor((diff / 1000) % 60).toString().padStart(2, '0');
-                    
                     timerElement.innerText = `${h}h ${m}m ${s}s`;
                 }
             };
-
             update();
             countdownInterval = setInterval(update, 1000);
         }
