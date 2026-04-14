@@ -36,6 +36,8 @@
             --white: #ffffff;
             --glass: rgba(255, 255, 255, 0.05);
             --border-glass: rgba(145, 70, 255, 0.3);
+            --instagram: #E1306C;
+            --ig-gradient: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -69,9 +71,9 @@
             border-bottom: 2px solid var(--twitch);
         }
 
-        .logo-text { font-weight: 900; letter-spacing: 3px; text-shadow: 0 0 10px var(--twitch); font-size: 1.2rem; }
+        .logo-text { font-weight: 900; letter-spacing: 3px; text-shadow: 0 0 10px var(--twitch); font-size: 1.2rem; white-space: nowrap; }
 
-        .nav-links { display: flex; list-style: none; gap: 20px; }
+        .nav-links { display: flex; list-style: none; gap: 20px; flex-wrap: wrap; justify-content: flex-end; }
         .nav-links a { color: var(--white); font-size: 1.4rem; transition: 0.3s; }
         .nav-links a:hover { color: var(--neon-pink); transform: scale(1.2); }
 
@@ -140,7 +142,7 @@
         .btn-live {
             background: var(--white); color: var(--black); padding: 18px 40px; text-decoration: none; font-weight: 900;
             font-size: 1.1rem; display: inline-block; text-transform: uppercase; transition: 0.3s;
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.3); border: none; cursor: pointer;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.3); border: none; cursor: pointer; text-align: center;
         }
         .btn-live.btn-explore { background: var(--twitch); color: var(--white); box-shadow: 0 0 20px var(--twitch); }
         .btn-live:hover { transform: translateY(-3px); filter: brightness(1.2); }
@@ -153,15 +155,16 @@
             width: 100%; max-width: 950px; aspect-ratio: 16 / 9;
             border: 4px solid var(--twitch); border-radius: 20px;
             overflow: hidden; background: #000; box-shadow: 0 0 30px rgba(145, 70, 255, 0.4); margin: 0 auto;
+            position: relative;
         }
 
-        /* Nuova Sezione Chi Sono & Specs */
+        /* Sezione Chi Sono, Specs & IG */
         .info-section {
             padding: 80px 5%;
             display: grid;
             grid-template-columns: 1fr;
             gap: 40px;
-            max-width: 1200px;
+            max-width: 1300px;
             margin: 0 auto;
         }
 
@@ -171,12 +174,14 @@
             padding: 30px;
             border-radius: 20px;
             backdrop-filter: blur(10px);
+            display: flex;
+            flex-direction: column;
         }
 
-        .info-card h2 { color: var(--neon-pink); margin-bottom: 20px; font-size: 1.5rem; letter-spacing: 2px; }
+        .info-card h2 { color: var(--neon-pink); margin-bottom: 20px; font-size: 1.5rem; letter-spacing: 2px; text-align: center; }
         .info-card p { line-height: 1.6; color: #ccc; margin-bottom: 20px; }
 
-        .specs-list { list-style: none; }
+        .specs-list { list-style: none; flex-grow: 1; }
         .specs-list li { 
             padding: 10px 0; 
             border-bottom: 1px solid rgba(255,255,255,0.05);
@@ -184,7 +189,44 @@
             justify-content: space-between;
             font-size: 0.9rem;
         }
-        .specs-list li span { color: var(--twitch); font-weight: bold; }
+        .specs-list li span { color: var(--twitch); font-weight: bold; text-align: right; }
+
+        /* Stili Nuova Card Instagram (In Evidenza) */
+        .ig-featured-card {
+            background: linear-gradient(var(--black), var(--black)) padding-box,
+                        var(--ig-gradient) border-box;
+            border: 3px solid transparent;
+            box-shadow: 0 0 25px rgba(225, 48, 108, 0.2);
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+        .ig-featured-title { font-family: 'Orbitron', sans-serif; text-align: center; color: #fff; letter-spacing: 2px; margin-bottom: 0;}
+        .ig-featured-title i { background: var(--ig-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        
+        .ig-profile-header { display: flex; flex-direction: column; align-items: center; gap: 15px; text-align: center; }
+        .ig-avatar-large { width: 90px; height: 90px; border-radius: 50%; padding: 3px; background: var(--ig-gradient); object-fit: cover;}
+        
+        .ig-user-info h3 { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; font-size: 1.4rem; margin-bottom: 10px; display: flex; align-items: center; justify-content: center; gap: 5px; }
+        .ig-stats { display: flex; gap: 20px; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; font-size: 0.9rem; color: #ccc; justify-content: center;}
+        .ig-stats div { text-align: center; }
+        .ig-stats span { display: block; font-weight: bold; font-size: 1.2rem; color: var(--white); }
+        
+        .ig-bio-section { text-align: center; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between; gap: 20px;}
+        .ig-bio { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; font-size: 1rem; line-height: 1.6; color: #eee; }
+        .ig-bio p { margin-bottom: 4px; }
+        .ig-bio a { color: #0095f6; text-decoration: none; font-weight: bold; }
+        
+        .ig-btn-large { 
+            display: inline-block; text-align: center; 
+            background: var(--ig-gradient); 
+            color: white; padding: 15px 30px; text-decoration: none; 
+            border-radius: 30px; font-weight: bold; font-size: 1.1rem;
+            transition: 0.3s; box-shadow: 0 5px 15px rgba(225, 48, 108, 0.4);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            margin: 0 auto; width: 100%;
+        }
+        .ig-btn-large:hover { filter: brightness(1.2); transform: scale(1.05); }
 
         /* Sezione Supporto */
         .support-section {
@@ -197,7 +239,7 @@
             max-width: 600px;
             margin: 0 auto;
             border: 2px dashed var(--twitch);
-            padding: 40px;
+            padding: 40px 20px;
             border-radius: 30px;
         }
 
@@ -223,18 +265,66 @@
             display: none; justify-content: center; align-items: center; z-index: 10000; opacity: 0; transition: 0.3s;
         }
         .modal-overlay.active { display: flex; opacity: 1; }
-        .modal-content { background: #111; border: 2px solid var(--twitch); padding: 40px; border-radius: 20px; text-align: center; width: 90%; max-width: 500px; }
-        .social-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 30px; }
-        .social-item { background: var(--glass); padding: 25px; border-radius: 12px; text-decoration: none; color: white; transition: 0.3s; display: flex; flex-direction: column; gap: 12px; align-items: center; }
+        .modal-content { background: #111; border: 2px solid var(--twitch); padding: 30px 20px; border-radius: 20px; text-align: center; width: 90%; max-width: 500px; max-height: 90vh; overflow-y: auto;}
+        
+        .social-grid { display: grid; grid-template-columns: 1fr; gap: 15px; margin-top: 25px; }
+        .social-item { background: var(--glass); padding: 18px; border-radius: 12px; text-decoration: none; color: white; transition: 0.3s; display: flex; flex-direction: column; gap: 10px; align-items: center; }
         .social-item i { font-size: 2rem; }
         .social-item:hover { background: rgba(145, 70, 255, 0.3); transform: translateY(-5px); border: 1px solid var(--neon-pink); }
-        .close-modal { margin-top: 35px; background: none; border: 1px solid #444; color: #888; padding: 12px 25px; cursor: pointer; font-family: 'Orbitron'; }
+        .close-modal { margin-top: 25px; background: none; border: 1px solid #444; color: #888; padding: 12px 25px; cursor: pointer; font-family: 'Orbitron'; transition: 0.3s; width: 100%;}
+        .close-modal:hover { background: #333; color: #fff;}
+
+        /* FIX MOBILE SPECIFICI */
+        @media (max-width: 480px) {
+            nav { padding: 12px 5%; }
+            .logo-text { font-size: 1rem; }
+            .nav-links { gap: 12px; }
+            .nav-links a { font-size: 1.2rem; }
+            
+            .info-card { padding: 25px 15px; }
+            .ig-featured-card { padding: 30px 15px; }
+            
+            .btn-live { padding: 15px 25px; font-size: 1rem; width: 100%;}
+            .hero-title { font-size: clamp(2rem, 10vw, 3rem); }
+            
+            .ig-stats { gap: 15px; font-size: 0.85rem; }
+            .ig-stats span { font-size: 1.1rem; }
+        }
+
+        /* FIX PC/TABLET SPECIFICI */
+        @media (min-width: 768px) {
+            .social-grid { grid-template-columns: 1fr 1fr; gap: 20px; }
+            .twitch-modal-btn { grid-column: span 2; }
+            .close-modal { width: auto; }
+            .modal-content { padding: 40px; }
+        }
 
         @media (min-width: 1024px) {
             .hero { flex-direction: row; text-align: left; padding: 80px 5%; justify-content: space-between; }
             .status-container { justify-content: flex-start; }
             .hero-socials { justify-content: flex-start; }
-            .info-section { grid-template-columns: 1fr 1fr; }
+            .btn-live { width: auto; }
+            .info-card h2 { text-align: left; }
+            
+            /* Aggiornato a 2 colonne, con Instagram a piena larghezza sopra */
+            .info-section { grid-template-columns: 1fr 1fr; gap: 40px; }
+            
+            /* La card IG prende 2 colonne (tutta la larghezza) e ha layout orizzontale */
+            .ig-featured-card { 
+                grid-column: span 2; 
+                flex-direction: row; 
+                align-items: center; 
+                justify-content: space-evenly; 
+                padding: 40px 60px;
+                gap: 0;
+            }
+            .ig-featured-title { display: none; /* Nascosto su PC perché ovvio dal contesto */ }
+            .ig-profile-header { flex-direction: row; text-align: left; gap: 30px; border-right: 1px solid rgba(255,255,255,0.1); padding-right: 40px;}
+            .ig-user-info h3 { justify-content: flex-start; font-size: 1.8rem; margin-bottom: 5px;}
+            .ig-stats { justify-content: flex-start; gap: 25px;}
+            .ig-bio-section { text-align: left; flex-direction: row; align-items: center; gap: 40px; flex-grow: 0;}
+            .ig-bio { margin-bottom: 0; font-size: 1.05rem;}
+            .ig-btn-large { margin: 0; width: auto; white-space: nowrap;}
         }
     </style>
 </head>
@@ -245,10 +335,11 @@
         <div class="modal-content">
             <h2 style="letter-spacing: 3px;">COLLEGAMENTI</h2>
             <div class="social-grid">
+                <a href="https://instagram.com/simooo_tv" target="_blank" class="social-item"><i class="fab fa-instagram" style="color:var(--instagram);"></i><span>Instagram</span></a>
                 <a href="https://tiktok.com/@simooo_tv" target="_blank" class="social-item"><i class="fab fa-tiktok"></i><span>TikTok</span></a>
                 <a href="https://youtube.com/@simooo_tv" target="_blank" class="social-item"><i class="fab fa-youtube" style="color:#ff0000;"></i><span>YouTube</span></a>
                 <a href="https://discord.gg/3uaZWZFgv" target="_blank" class="social-item"><i class="fab fa-discord" style="color:#7289da;"></i><span>Discord</span></a>
-                <a href="https://twitch.tv/simooo_tv" target="_blank" class="social-item"><i class="fab fa-twitch" style="color:#9146FF;"></i><span>Twitch</span></a>
+                <a href="https://twitch.tv/simooo_tv" target="_blank" class="social-item twitch-modal-btn"><i class="fab fa-twitch" style="color:#9146FF;"></i><span>Twitch</span></a>
             </div>
             <button class="close-modal" onclick="toggleModal()">TORNA INDIETRO</button>
         </div>
@@ -257,6 +348,7 @@
     <nav>
         <div class="logo-text">SIMOOO_TV</div>
         <ul class="nav-links">
+            <li><a href="https://instagram.com/simooo_tv" target="_blank"><i class="fab fa-instagram"></i></a></li>
             <li><a href="https://twitch.tv/simooo_tv" target="_blank"><i class="fab fa-twitch"></i></a></li>
             <li><a href="https://tiktok.com/@simooo_tv" target="_blank"><i class="fab fa-tiktok"></i></a></li>
             <li><a href="https://youtube.com/@simooo_tv" target="_blank"><i class="fab fa-youtube"></i></a></li> 
@@ -296,6 +388,7 @@
             </div>
             
             <div class="hero-socials">
+                <a href="https://instagram.com/simooo_tv" target="_blank"><i class="fab fa-instagram"></i></a>
                 <a href="https://twitch.tv/simooo_tv" target="_blank"><i class="fab fa-twitch"></i></a>
                 <a href="https://tiktok.com/@simooo_tv" target="_blank"><i class="fab fa-tiktok"></i></a>
                 <a href="https://youtube.com/@simooo_tv" target="_blank"><i class="fab fa-youtube"></i></a> 
@@ -308,16 +401,46 @@
     </section>
 
     <section class="info-section">
+        
+        <div class="info-card ig-featured-card">
+            <h2 class="ig-featured-title"><i class="fab fa-instagram"></i> INSTAGRAM</h2>
+            
+            <div class="ig-profile-header">
+                <img src="img/logo.png" alt="Avatar IG" class="ig-avatar-large">
+                <div class="ig-user-info">
+                    <h3>simooo_tv <i class="fas fa-check-circle" style="color: #1DA1F2; font-size: 1.1rem;" title="Verificato"></i></h3>
+                    <div class="ig-stats">
+                        <div><span>115</span> post</div>
+                        <div><span>367</span> follower</div>
+                        <div><span>12</span> seguiti</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="ig-bio-section">
+                <div class="ig-bio">
+                    <p style="font-weight: bold; color: #fff; font-size: 1.1rem;">Simooo_tv</p>
+                    <p>🚀Twitch 5K+🚀</p>
+                    <p>🚀YouTube: 300+🚀</p>
+                    <p>🚀TikTok: 3,3K+🚀</p>
+                    <p>✉️ simoneeee77social@gmail.com</p>
+                    <p>🔗 <a href="https://simoootv.github.io/?v=3" target="_blank">simoootv.github.io/?v=3</a> e altri 4</p>
+                </div>
+                <a href="https://instagram.com/simooo_tv" target="_blank" class="ig-btn-large"><i class="fab fa-instagram"></i> SEGUI IL PROFILO</a>
+            </div>
+        </div>
+
         <div class="info-card">
             <h2>CHI SONO</h2>
             <p>È arrivata l’ora di farti scoprire chi sono!
-Mi chiamo Simone (alcuni mi chiamano honey), sì, proprio come il miele, ma puoi chiamarmi come ti è più comodo.
-Abito vicino a Torino (tranquillo, non sono un polentone… sono uno di voi 🫵).
-Ho 20 anni, proprio come te qualche anno fa… o tra qualche anno.
-Amo regalare risate a chi mi guarda e dare una mano a chi ne ha bisogno.
-Quindi non fare il timido: dopo aver letto questa biografia, per la quale ho spremuto il cervello fino all’ultima goccia, ti aspetto in chat per sparare stronzate insieme!</p>
+            Mi chiamo Simone (alcuni mi chiamano honey), sì, proprio come il miele, ma puoi chiamarmi come ti è più comodo.
+            Abito vicino a Torino (tranquillo, non sono un polentone… sono uno di voi 🫵).
+            Ho 20 anni, proprio come te qualche anno fa… o tra qualche anno.
+            Amo regalare risate a chi mi guarda e dare una mano a chi ne ha bisogno.
+            Quindi non fare il timido: dopo aver letto questa biografia, per la quale ho spremuto il cervello fino all’ultima goccia, ti aspetto in chat per sparare stronzate insieme!</p>
             <p>Non dimenticare di seguirmi sui social per rimanere aggiornato su clip esclusive e annunci!</p>
         </div>
+        
         <div class="info-card">
             <h2>IL MIO PC</h2>
             <ul class="specs-list">
@@ -328,6 +451,7 @@ Quindi non fare il timido: dopo aver letto questa biografia, per la quale ho spr
                 <li>Alimentatore: <span>MSI MAG A850GL 850W</span></li>
             </ul>
         </div>
+
     </section>
 
     <section class="support-section">
@@ -339,7 +463,7 @@ Quindi non fare il timido: dopo aver letto questa biografia, per la quale ho spr
     </section>
 
     <section class="calendar-section">
-        <div class="db-title">CALENDARIO SETTIMANALE</div>
+        <div class="db-title">CALENDARIO </div>
         <div class="calendar-container">
             <img src="img/calendario.jpg" alt="Calendario" class="calendar-img">
         </div>
@@ -353,9 +477,15 @@ Quindi non fare il timido: dopo aver letto questa biografia, per la quale ho spr
     <script src="https://embed.twitch.tv/embed/v1.js"></script>
     <script>
         var embed = new Twitch.Embed("twitch-embed", {
-            width: "100%", height: "100%", channel: "simooo_tv",
+            width: "100%", 
+            height: "100%", 
+            channel: "simooo_tv",
             parent: ["simoootv.github.io", "localhost"],
-            layout: "video", autoplay: true, muted: true
+            layout: "video", 
+            autoplay: true, 
+            muted: true,
+            playsinline: true,
+            allowfullscreen: true
         });
 
         let countdownInterval;
