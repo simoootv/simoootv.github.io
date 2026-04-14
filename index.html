@@ -132,7 +132,8 @@
         .hero-title span { color: transparent; -webkit-text-stroke: 2px var(--neon-pink); }
         .hero-title .live-text { display: block; font-size: clamp(1.5rem, 5vw, 2.5rem); color: var(--twitch); -webkit-text-stroke: 0; margin-top: 10px; }
 
-        .countdown-container { display: none; margin-bottom: 25px; font-size: 1.1rem; letter-spacing: 2px; color: #aaa; }
+        .countdown-container { display: none; margin-bottom: 25px; font-size: 1.1rem; letter-spacing: 2px; color: #aaa; transition: 0.3s; }
+        .countdown-container #countdown-title { display: block; transition: 0.3s; }
         .countdown-container .time { display: block; font-size: clamp(1.8rem, 5vw, 2.8rem); color: var(--neon-pink); font-weight: 900; text-shadow: 0 0 15px var(--neon-pink); margin-top: 5px; }
 
         .btn-live {
@@ -200,7 +201,8 @@
         <ul class="nav-links">
             <li><a href="https://twitch.tv/simooo_tv" target="_blank"><i class="fab fa-twitch"></i></a></li>
             <li><a href="https://tiktok.com/@simooo_tv" target="_blank"><i class="fab fa-tiktok"></i></a></li>
-            <li><a href="https://youtube.com/@simooo_tv" target="_blank"><i class="fab fa-youtube"></i></a></li> <li><a href="https://discord.gg/3uaZWZFgv" target="_blank"><i class="fab fa-discord"></i></a></li>
+            <li><a href="https://youtube.com/@simooo_tv" target="_blank"><i class="fab fa-youtube"></i></a></li> 
+            <li><a href="https://discord.gg/3uaZWZFgv" target="_blank"><i class="fab fa-discord"></i></a></li>
         </ul>
     </nav>
 
@@ -228,17 +230,19 @@
                 <div id="live-badge" class="live-badge"><i class="fab fa-twitch"></i> ORA IN ONDA</div>
                 <a href="https://twitch.tv/simooo_tv" target="_blank" id="status-btn" class="btn-live">Caricamento...</a>
             </div>
+            
             <h1 class="hero-title" id="main-title">SIMOOO<span>TV</span></h1>
             
             <div id="countdown-wrapper" class="countdown-container">
-                PROSSIMA STREAM TRA:
+                <span id="countdown-title">PROSSIMA STREAM TRA:</span>
                 <span class="time" id="countdown-timer">--h --m --s</span>
             </div>
             
             <div class="hero-socials">
                 <a href="https://twitch.tv/simooo_tv" target="_blank"><i class="fab fa-twitch"></i></a>
                 <a href="https://tiktok.com/@simooo_tv" target="_blank"><i class="fab fa-tiktok"></i></a>
-                <a href="https://youtube.com/@simooo_tv" target="_blank"><i class="fab fa-youtube"></i></a> <a href="https://discord.gg/3uaZWZFgv" target="_blank"><i class="fab fa-discord"></i></a>
+                <a href="https://youtube.com/@simooo_tv" target="_blank"><i class="fab fa-youtube"></i></a> 
+                <a href="https://discord.gg/3uaZWZFgv" target="_blank"><i class="fab fa-discord"></i></a>
             </div>
         </div>
         <div class="live-container">
@@ -287,33 +291,81 @@
                 btn.href = "#";
                 btn.onclick = (e) => { e.preventDefault(); toggleModal(); };
                 badge.style.display = "none";
+                // Aggiunto per soddisfare la richiesta "SIMOOO_TV OFFLINE"
                 title.innerHTML = "SIMOOO_TV <br><span>OFFLINE</span>";
             }
         }
 
-        function getNextLiveTime() {
+        // Funzione per calcolare se siamo in periodo live, in attesa, o lontani
+        function getStreamStatus() {
             const now = new Date();
-            const t1 = new Date(now); t1.setHours(14, 30, 0, 0);
-            const t2 = new Date(now); t2.setHours(20, 45, 0, 0);
-            if (now < t1) return t1;
-            if (now < t2) return t2;
-            const tomorrow = new Date(now); tomorrow.setDate(tomorrow.getDate() + 1);
-            tomorrow.setHours(14, 30, 0, 0);
-            return tomorrow;
+            const currentHour = now.getHours();
+            const currentMinute = now.getMinutes();
+            const timeInMinutes = currentHour * 60 + currentMinute;
+
+            // Fascia Pomeridiana: dalle 14:30 alle 16:00 (Finestra d'attesa)
+            const time1 = 14 * 60 + 30; // 870 minuti
+            const time1End = 16 * 60 + 0; // 960 minuti
+
+            // Fascia Serale: dalle 20:45 alle 22:15 (Finestra d'attesa)
+            const time2 = 20 * 60 + 45; // 1245 minuti
+            const time2End = 22 * 60 + 15; // 1335 minuti
+
+            if (timeInMinutes >= time1 && timeInMinutes <= time1End) {
+                return { state: "SOON" };
+            } else if (timeInMinutes >= time2 && timeInMinutes <= time2End) {
+                return { state: "SOON" };
+            } else if (timeInMinutes < time1) {
+                let t = new Date(now); t.setHours(14, 30, 0, 0);
+                return { state: "COUNTDOWN", target: t };
+            } else if (timeInMinutes > time1End && timeInMinutes < time2) {
+                let t = new Date(now); t.setHours(20, 45, 0, 0);
+                return { state: "COUNTDOWN", target: t };
+            } else {
+                let t = new Date(now);
+                t.setDate(t.getDate() + 1);
+                t.setHours(14, 30, 0, 0);
+                return { state: "COUNTDOWN", target: t };
+            }
         }
 
         function startCountdown() {
             const wrapper = document.getElementById('countdown-wrapper');
+            const titleElement = document.getElementById('countdown-title');
+            const timerElement = document.getElementById('countdown-timer');
+            
             wrapper.style.display = 'block';
             if (countdownInterval) clearInterval(countdownInterval);
+
             const update = () => {
-                const diff = getNextLiveTime() - new Date();
-                if (diff <= 0) { document.getElementById('countdown-timer').innerText = "STA PER INIZIARE!"; return; }
-                const h = Math.floor((diff / 3600000) % 24).toString().padStart(2, '0');
-                const m = Math.floor((diff / 60000) % 60).toString().padStart(2, '0');
-                const s = Math.floor((diff / 1000) % 60).toString().padStart(2, '0');
-                document.getElementById('countdown-timer').innerText = `${h}h ${m}m ${s}s`;
+                const status = getStreamStatus();
+
+                if (status.state === "SOON") {
+                    // Mostra la scritta "LA LIVE INIZIERA' A BREVE"
+                    titleElement.innerText = "LA LIVE INIZIERÀ A BREVE!";
+                    titleElement.style.color = "var(--neon-pink)";
+                    titleElement.style.fontWeight = "900";
+                    titleElement.style.fontSize = "1.5rem";
+                    titleElement.style.textShadow = "0 0 10px var(--neon-pink)";
+                    timerElement.style.display = "none";
+                } else {
+                    // Mostra il timer di conto alla rovescia standard
+                    titleElement.innerText = "PROSSIMA STREAM TRA:";
+                    titleElement.style.color = "#aaa";
+                    titleElement.style.fontWeight = "normal";
+                    titleElement.style.fontSize = "1.1rem";
+                    titleElement.style.textShadow = "none";
+                    timerElement.style.display = "block";
+
+                    const diff = status.target - new Date();
+                    const h = Math.floor((diff / 3600000) % 24).toString().padStart(2, '0');
+                    const m = Math.floor((diff / 60000) % 60).toString().padStart(2, '0');
+                    const s = Math.floor((diff / 1000) % 60).toString().padStart(2, '0');
+                    
+                    timerElement.innerText = `${h}h ${m}m ${s}s`;
+                }
             };
+
             update();
             countdownInterval = setInterval(update, 1000);
         }
