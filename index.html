@@ -151,6 +151,9 @@
         .hero-socials a { color: var(--white); font-size: 2.2rem; transition: 0.3s; }
         .hero-socials a:hover { color: var(--neon-pink); transform: scale(1.2); }
 
+        /* Nuova sezione support posizionata sotto i social */
+        .hero-support-btn { margin-top: 25px; }
+
         .live-container {
             width: 100%; max-width: 950px; aspect-ratio: 16 / 9;
             border: 4px solid var(--twitch); border-radius: 20px;
@@ -191,7 +194,7 @@
         }
         .specs-list li span { color: var(--twitch); font-weight: bold; text-align: right; }
 
-        /* Stili Nuova Card Instagram (In Evidenza) */
+        /* Stili Instagram Card */
         .ig-featured-card {
             background: linear-gradient(var(--black), var(--black)) padding-box,
                         var(--ig-gradient) border-box;
@@ -227,21 +230,6 @@
             margin: 0 auto; width: 100%;
         }
         .ig-btn-large:hover { filter: brightness(1.2); transform: scale(1.05); }
-
-        /* Sezione Supporto */
-        .support-section {
-            padding: 60px 5%;
-            text-align: center;
-            background: linear-gradient(0deg, rgba(145, 70, 255, 0.1), transparent);
-        }
-
-        .support-box {
-            max-width: 600px;
-            margin: 0 auto;
-            border: 2px dashed var(--twitch);
-            padding: 40px 20px;
-            border-radius: 30px;
-        }
 
         /* Calendario */
         .calendar-section { padding: 80px 5%; text-align: center; border-top: 1px solid rgba(145, 70, 255, 0.2); }
@@ -303,13 +291,12 @@
             .hero { flex-direction: row; text-align: left; padding: 80px 5%; justify-content: space-between; }
             .status-container { justify-content: flex-start; }
             .hero-socials { justify-content: flex-start; }
+            .hero-support-btn { text-align: left; }
             .btn-live { width: auto; }
             .info-card h2 { text-align: left; }
             
-            /* Aggiornato a 2 colonne, con Instagram a piena larghezza sopra */
             .info-section { grid-template-columns: 1fr 1fr; gap: 40px; }
             
-            /* La card IG prende 2 colonne (tutta la larghezza) e ha layout orizzontale */
             .ig-featured-card { 
                 grid-column: span 2; 
                 flex-direction: row; 
@@ -318,7 +305,7 @@
                 padding: 40px 60px;
                 gap: 0;
             }
-            .ig-featured-title { display: none; /* Nascosto su PC perché ovvio dal contesto */ }
+            .ig-featured-title { display: none; }
             .ig-profile-header { flex-direction: row; text-align: left; gap: 30px; border-right: 1px solid rgba(255,255,255,0.1); padding-right: 40px;}
             .ig-user-info h3 { justify-content: flex-start; font-size: 1.8rem; margin-bottom: 5px;}
             .ig-stats { justify-content: flex-start; gap: 25px;}
@@ -394,6 +381,10 @@
                 <a href="https://youtube.com/@simooo_tv" target="_blank"><i class="fab fa-youtube"></i></a> 
                 <a href="https://discord.gg/3uaZWZFgv" target="_blank"><i class="fab fa-discord"></i></a>
             </div>
+
+            <div class="hero-support-btn">
+                <a href="https://twitch.tv/simooo_tv/subscribe" target="_blank" class="btn-live btn-explore">SUPPORTA IL CANALE</a>
+            </div>
         </div>
         <div class="live-container">
             <div id="twitch-embed" style="width: 100%; height: 100%;"></div>
@@ -401,10 +392,8 @@
     </section>
 
     <section class="info-section">
-        
         <div class="info-card ig-featured-card">
             <h2 class="ig-featured-title"><i class="fab fa-instagram"></i> INSTAGRAM</h2>
-            
             <div class="ig-profile-header">
                 <img src="img/logo.png" alt="Avatar IG" class="ig-avatar-large">
                 <div class="ig-user-info">
@@ -416,7 +405,6 @@
                     </div>
                 </div>
             </div>
-            
             <div class="ig-bio-section">
                 <div class="ig-bio">
                     <p style="font-weight: bold; color: #fff; font-size: 1.1rem;">Simooo_tv</p>
@@ -424,41 +412,48 @@
                     <p>🚀YouTube: 300+🚀</p>
                     <p>🚀TikTok: 3,3K+🚀</p>
                     <p>✉️ simoneeee77social@gmail.com</p>
-                    <p>🔗 <a href="https://simoootv.github.io/?v=3" target="_blank">simoootv.github.io/?v=3</a> e altri 4</p>
+                    
                 </div>
                 <a href="https://instagram.com/simooo_tv" target="_blank" class="ig-btn-large"><i class="fab fa-instagram"></i> SEGUI IL PROFILO</a>
             </div>
         </div>
 
         <div class="info-card">
-            <h2>CHI SONO</h2>
-            <p>È arrivata l’ora di farti scoprire chi sono!
-            Mi chiamo Simone (alcuni mi chiamano honey), sì, proprio come il miele, ma puoi chiamarmi come ti è più comodo.
-            Abito vicino a Torino (tranquillo, non sono un polentone… sono uno di voi 🫵).
-            Ho 20 anni, proprio come te qualche anno fa… o tra qualche anno.
-            Amo regalare risate a chi mi guarda e dare una mano a chi ne ha bisogno.
-            Quindi non fare il timido: dopo aver letto questa biografia, per la quale ho spremuto il cervello fino all’ultima goccia, ti aspetto in chat per sparare stronzate insieme!</p>
-            <p>Non dimenticare di seguirmi sui social per rimanere aggiornato su clip esclusive e annunci!</p>
+            <h2>CHI SONO</h2>È arrivata l’ora di farti scoprire chi sono!
+Mi chiamo Simone (alcuni mi chiamano honey), sì, proprio come il miele, ma puoi chiamarmi come ti è più comodo.
+Abito vicino a Torino (tranquillo, non sono un polentone… sono uno di voi 🫵).
+Ho 20 anni, proprio come te qualche anno fa… o tra qualche anno.
+Amo regalare risate a chi mi guarda e dare una mano a chi ne ha bisogno.
+Quindi non fare il timido: dopo aver letto questa biografia, per la quale ho spremuto il cervello fino all’ultima goccia, ti aspetto in chat per sparare stronzate insieme!!</p>
         </div>
         
         <div class="info-card">
-            <h2>IL MIO PC</h2>
+            <h2>POSTAZIONE GAMING</h2>
             <ul class="specs-list">
                 <li>CPU: <span>i7-14700k</span></li>
                 <li>SCHEDA MADRE: <span>NZXT N7 Z790 </span></li>
                  <li>SCHEDA VIDEO: <span>GeForce RTX 5070 ti 16 gb</span></li>
                 <li>RAM: <span>Silicon Power DDR5 64gb</span></li>
                 <li>Alimentatore: <span>MSI MAG A850GL 850W</span></li>
+                 <li>Dissipatore:<span>NZXT Kraken Plus 360 RGB </span></li>
+                <li>SSD NVMe X2: <span>WD_BLACK SN700 2TB</span></li>
+                 <li>SSD Sata X2 <span>WD Blue SA510 2TB</span></li>
+                <li>Case: <span>NZXT H9 Elite (white) +
+NZXT F360 RGB (white) + NZXT F120RGB (white)</span></li>
+                <li>Monitor 1: <span>Msi g24 144hz</span></li>
+                   <li>Monitor 2-3: <span>Samsung S31C</span></li>
+                   <li>Monitor 4: <span>Majestic SM424</span></li>
+                      <li>Microfono: <span>Shure SM7B</span></li>
+                   <li>Cuffie: <span>HyperX Cloud Alpha</span></li>
+                   <li>Tastiera: <span> EPOMAKER TH80 Pro 75% +
+Akko Linear Switch V3 Pro Cream Black + KeyCaps white</span></li>
+   <li>Mouse <span>Logitech G PRO X SUPERLIGHT 2 SE</span></li>
+                <li>Stream Deck: <span>Elgato Stream Deck MK.2 </span></li>
+                 <li>Scheda Audio: <span> GOXLR</span></li>
+                <li>Cam<span>Elgato Facecam 4K</span></li>
+                 <li>Ring light: <span>Key-Light elgato</span></li>
+
             </ul>
-        </div>
-
-    </section>
-
-    <section class="support-section">
-        <div class="support-box">
-            <h2 class="db-title" style="margin-bottom: 15px;">SUPPORTA IL CANALE</h2>
-            <p style="margin-bottom: 25px; color: #aaa;">Abbonati o fai una donazione per migliorare la qualità delle stream!</p>
-            <a href="https://twitch.tv/simooo_tv/subscribe" target="_blank" class="btn-live btn-explore">ABBONATI ORA</a>
         </div>
     </section>
 
@@ -482,10 +477,17 @@
             channel: "simooo_tv",
             parent: ["simoootv.github.io", "localhost"],
             layout: "video", 
-            autoplay: true, 
-            muted: true,
+            autoplay: true, // Live parte in automatico
+            muted: true,    // NECESSARIO per l'autoplay sulla maggior parte dei browser moderni
             playsinline: true,
             allowfullscreen: true
+        });
+
+        // FORZATURA AUTOPLAY - Non appena il video è pronto, forza il play
+        embed.addEventListener(Twitch.Embed.VIDEO_READY, function() {
+            var player = embed.getPlayer();
+            player.setMuted(true); // Si assicura che sia mutato altrimenti il browser blocca il play
+            player.play();
         });
 
         let countdownInterval;
@@ -527,7 +529,6 @@
 
             if (now >= time1 && now <= time1End) return "SOON";
             if (now >= time2 && now <= time2End) return "SOON";
-            
             if (now < time1) return time1;
             if (now < time2) return time2;
             
@@ -547,7 +548,6 @@
             
             const update = () => {
                 const target = getNextLiveTime();
-                
                 if (target === "SOON") {
                     countdownText.innerText = "LA LIVE INIZIERÀ A BREVE!";
                     countdownText.style.color = "var(--neon-pink)";
@@ -556,7 +556,6 @@
                     countdownText.innerText = "PROSSIMA STREAM TRA:";
                     countdownText.style.color = "#aaa";
                     timerElement.style.display = 'block';
-                    
                     const diff = target - new Date();
                     const h = Math.floor((diff / 3600000) % 24).toString().padStart(2, '0');
                     const m = Math.floor((diff / 60000) % 60).toString().padStart(2, '0');
