@@ -527,146 +527,6 @@
             to { transform: translateX(0%); } 
         }
 
-        /* ===== GAME BAR ===== */
-        .game-bar {
-            max-width: 1100px;
-            margin: clamp(15px, 3vw, 35px) auto;
-            padding: 0 clamp(10px, 3vw, 25px);
-            width: 100%;
-        }
-
-        .game-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: clamp(10px, 2vw, 18px);
-            flex-wrap: wrap;
-            gap: clamp(6px, 1.2vw, 15px);
-        }
-
-        .game-title {
-            font-size: clamp(0.8rem, 2vw, 1.2rem);
-            font-weight: 900;
-            letter-spacing: clamp(0.5px, 0.7vw, 2px);
-            background: linear-gradient(90deg, var(--neon-lime), var(--neon-cyan), var(--neon-pink));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            text-transform: uppercase;
-            filter: drop-shadow(0 0 12px rgba(0, 255, 65, 0.5));
-        }
-
-        .game-stats {
-            display: flex;
-            gap: clamp(5px, 1vw, 12px);
-            flex-wrap: wrap;
-        }
-
-        .stat-box {
-            background: linear-gradient(135deg, rgba(0, 255, 65, 0.1), rgba(0, 240, 255, 0.08));
-            border: 2px solid var(--neon-lime);
-            padding: clamp(5px, 0.8vw, 8px) clamp(7px, 1.2vw, 15px);
-            border-radius: 6px;
-            text-align: center;
-            box-shadow: 0 0 15px rgba(0, 255, 65, 0.3);
-            transition: all 0.3s;
-        }
-
-        .stat-box:hover {
-            transform: scale(1.06);
-            box-shadow: 0 0 25px rgba(0, 255, 65, 0.5);
-        }
-
-        .stat-label {
-            font-size: clamp(0.45rem, 0.9vw, 0.65rem);
-            color: var(--neon-lime);
-            letter-spacing: 0.4px;
-            font-weight: bold;
-            text-transform: uppercase;
-        }
-
-        .stat-value {
-            font-size: clamp(0.7rem, 1.4vw, 1rem);
-            font-weight: 900;
-            color: var(--white);
-            text-shadow: 0 0 12px var(--neon-lime);
-            margin-top: 1px;
-        }
-
-        .difficulty-selector {
-            display: flex;
-            gap: clamp(3px, 0.6vw, 8px);
-            align-items: center;
-            background: rgba(0, 240, 255, 0.06);
-            padding: clamp(5px, 0.7vw, 8px) clamp(7px, 1vw, 12px);
-            border-radius: 6px;
-            border: 2px solid rgba(0, 240, 255, 0.25);
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        .difficulty-label {
-            font-size: clamp(0.45rem, 0.8vw, 0.7rem);
-            letter-spacing: 0.3px;
-            background: linear-gradient(90deg, var(--neon-cyan), var(--neon-pink));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            font-weight: 900;
-            text-transform: uppercase;
-            white-space: nowrap;
-        }
-
-        .difficulty-btn {
-            padding: clamp(3px, 0.5vw, 6px) clamp(6px, 1vw, 12px);
-            border: 2px solid var(--neon-pink);
-            background: transparent;
-            color: var(--neon-pink);
-            cursor: pointer;
-            border-radius: 5px;
-            font-family: 'Orbitron', sans-serif;
-            transition: all 0.3s;
-            font-weight: 900;
-            font-size: clamp(0.45rem, 0.75vw, 0.65rem);
-            letter-spacing: 0.2px;
-            text-transform: uppercase;
-        }
-
-        .difficulty-btn.active {
-            background: linear-gradient(135deg, var(--neon-pink), #ff0080);
-            color: var(--white);
-            box-shadow: 0 0 20px var(--neon-pink);
-            border-color: var(--white);
-        }
-
-        .difficulty-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 15px var(--neon-pink);
-        }
-
-        #gameCanvas {
-            width: 100%;
-            height: clamp(80px, 25vw, 230px);
-            background: linear-gradient(180deg, #0f0033 0%, #1a0052 50%, #0f0033 100%);
-            border: 3px solid var(--neon-cyan);
-            border-radius: 12px;
-            display: block;
-            box-shadow: 0 0 50px rgba(0, 240, 255, 0.5), inset 0 0 30px rgba(0, 240, 255, 0.15);
-            animation: game-glow-ultra 2.5s ease-in-out infinite;
-            cursor: pointer;
-            position: relative;
-            touch-action: none;
-        }
-
-        @keyframes game-glow-ultra {
-            0%, 100% { 
-                box-shadow: 0 0 50px rgba(0, 240, 255, 0.5), inset 0 0 30px rgba(0, 240, 255, 0.15);
-            }
-            50% { 
-                box-shadow: 0 0 70px rgba(0, 240, 255, 0.7), inset 0 0 40px rgba(0, 240, 255, 0.3);
-            }
-        }
-
         /* ===== HERO SECTION ===== */
         .hero {
             display: flex; 
@@ -775,7 +635,7 @@
         }
 
         .countdown-container { 
-            display: none; 
+            display: block; 
             margin-bottom: clamp(10px, 2vw, 25px); 
             font-size: clamp(0.7rem, 1.4vw, 0.95rem); 
             letter-spacing: 0.8px; 
@@ -1417,11 +1277,6 @@
             .hero {
                 padding: clamp(15px, 3vw, 35px) clamp(8px, 2.5vw, 18px);
             }
-
-            .game-bar {
-                margin: clamp(12px, 2.5vw, 25px) auto;
-                padding: 0 clamp(8px, 2.5vw, 15px);
-            }
         }
 
         @media (max-width: 400px) {
@@ -1442,21 +1297,6 @@
                 width: clamp(24px, 5vw, 32px);
                 height: clamp(24px, 5vw, 32px);
                 font-size: clamp(0.75rem, 1.5vw, 0.9rem);
-            }
-
-            .game-header {
-                flex-direction: column;
-                gap: clamp(5px, 1vw, 10px);
-            }
-
-            .game-stats {
-                width: 100%;
-                justify-content: center;
-            }
-
-            .difficulty-selector {
-                width: 100%;
-                justify-content: center;
             }
         }
     </style>
@@ -1565,29 +1405,6 @@
         </div>
     </section>
 
-    <div class="game-bar">
-        <div class="game-header">
-            <div class="game-title">giochino</div>
-            <div class="game-stats">
-                <div class="stat-box">
-                    <div class="stat-label">⚡ SCORE</div>
-                    <div class="stat-value" id="scoreDisplay">0</div>
-                </div>
-                <div class="stat-box">
-                    <div class="stat-label">🏆 RECORD</div>
-                    <div class="stat-value" id="recordDisplay">0</div>
-                </div>
-            </div>
-            <div class="difficulty-selector">
-                <div class="difficulty-label">⚙️ DIF:</div>
-                <button class="difficulty-btn active" onclick="setDifficulty(1)">EASY</button>
-                <button class="difficulty-btn" onclick="setDifficulty(2)">NORMAL</button>
-                <button class="difficulty-btn" onclick="setDifficulty(3)">HARD</button>
-            </div>
-        </div>
-        <canvas id="gameCanvas"></canvas>
-    </div>
-
     <section class="hero">
         <div class="hero-content">
             <div class="status-container">
@@ -1600,8 +1417,8 @@
             </div>
             
             <div id="countdown-wrapper" class="countdown-container">
-                <span id="countdown-text">PROSSIMA STREAM TRA:</span>
-                <span class="time" id="countdown-timer">--h --m --s</span>
+                <span id="countdown-text">ORARI STREAM</span>
+                <span class="time" id="countdown-timer">14:30 - 19:00 • 20:45 - 00:00 TUTTI I GIORNI</span>
             </div>
             
             <div class="hero-socials">
@@ -1693,7 +1510,7 @@
 
     <script src="https://embed.twitch.tv/embed/v1.js"></script>
     <script>
-        // === LOADING SCREEN CON ANIMAZIONI ENHANCED ===
+        // === LOADING SCREEN ===
         function createParticles() {
             const container = document.getElementById('particlesContainer');
             for (let i = 0; i < 40; i++) {
@@ -1742,237 +1559,7 @@
             }, 3000);
         });
 
-        // === IMPROVED GAME ===
-        const canvas = document.getElementById('gameCanvas');
-        const ctx = canvas.getContext('2d');
-
-        function resizeCanvas() {
-            canvas.width = canvas.offsetWidth;
-            canvas.height = canvas.offsetHeight;
-        }
-        resizeCanvas();
-        window.addEventListener('resize', resizeCanvas);
-
-        let difficulty = 1;
-        const DIFFICULTIES = {
-            1: { speed: 4.5, spawnRate: 0.015, multiplier: 1, dragonSize: 35 },
-            2: { speed: 7.5, spawnRate: 0.025, multiplier: 1.5, dragonSize: 35 },
-            3: { speed: 10.5, spawnRate: 0.035, multiplier: 2, dragonSize: 35 }
-        };
-
-        const dragon = { x: 50, y: 0, width: 40, height: 35, velocityY: 0, jumping: false };
-        let obstacles = [];
-        let score = 0;
-        let record = localStorage.getItem('dragonRecord') || 0;
-        let gameRunning = true;
-        let gameOver = false;
-
-        function updateRecord() { document.getElementById('recordDisplay').textContent = record; }
-        updateRecord();
-
-        function setDifficulty(level) {
-            difficulty = level;
-            document.querySelectorAll('.difficulty-btn').forEach(b => b.classList.remove('active'));
-            event.target.classList.add('active');
-            resetGame();
-        }
-
-        function resetGame() {
-            dragon.y = canvas.height / 2;
-            dragon.velocityY = 0;
-            dragon.jumping = false;
-            obstacles = [];
-            score = 0;
-            gameRunning = true;
-            gameOver = false;
-            document.getElementById('scoreDisplay').textContent = '0';
-        }
-
-        function createObstacle() {
-            const height = 40 + Math.random() * 30;
-            const isTop = Math.random() > 0.5;
-            obstacles.push({
-                x: canvas.width,
-                y: isTop ? 0 : canvas.height - height,
-                width: 30,
-                height: height,
-                speed: DIFFICULTIES[difficulty].speed,
-                isTop: isTop
-            });
-        }
-
-        function drawDragon() {
-            const size = DIFFICULTIES[difficulty].dragonSize;
-            ctx.fillStyle = '#FF1493';
-            ctx.beginPath();
-            ctx.ellipse(dragon.x + 12, dragon.y + 15, 18, 15, 0, 0, Math.PI * 2);
-            ctx.fill();
-            
-            ctx.fillStyle = '#FF69B4';
-            ctx.beginPath();
-            ctx.arc(dragon.x + 28, dragon.y + 10, 10, 0, Math.PI * 2);
-            ctx.fill();
-            
-            ctx.fillStyle = '#FFF';
-            ctx.beginPath();
-            ctx.arc(dragon.x + 32, dragon.y + 7, 3.5, 0, Math.PI * 2);
-            ctx.fill();
-            
-            ctx.fillStyle = '#000';
-            ctx.beginPath();
-            ctx.arc(dragon.x + 33, dragon.y + 6, 1.5, 0, Math.PI * 2);
-            ctx.fill();
-            
-            ctx.strokeStyle = '#FF00FF';
-            ctx.lineWidth = 2;
-            ctx.beginPath();
-            ctx.moveTo(dragon.x + 12, dragon.y + 10);
-            ctx.quadraticCurveTo(dragon.x - 5, dragon.y, dragon.x, dragon.y + 5);
-            ctx.stroke();
-            
-            ctx.beginPath();
-            ctx.moveTo(dragon.x + 12, dragon.y + 20);
-            ctx.quadraticCurveTo(dragon.x - 5, dragon.y + 30, dragon.x, dragon.y + 25);
-            ctx.stroke();
-            
-            ctx.strokeStyle = '#FF69B4';
-            ctx.lineWidth = 3;
-            ctx.beginPath();
-            ctx.moveTo(dragon.x + 5, dragon.y + 15);
-            ctx.quadraticCurveTo(dragon.x - 10, dragon.y + 10, dragon.x - 15, dragon.y + 15);
-            ctx.stroke();
-        }
-
-        function drawObstacles() {
-            obstacles.forEach(o => {
-                const grad = ctx.createLinearGradient(o.x, o.y, o.x + o.width, o.y + o.height);
-                grad.addColorStop(0, '#00F0FF');
-                grad.addColorStop(1, '#00C0FF');
-                
-                ctx.fillStyle = grad;
-                ctx.fillRect(o.x, o.y, o.width, o.height);
-                
-                ctx.strokeStyle = '#00FF88';
-                ctx.lineWidth = 2;
-                ctx.strokeRect(o.x, o.y, o.width, o.height);
-            });
-        }
-
-        function update() {
-            if (!gameRunning) return;
-
-            dragon.velocityY += 0.6;
-            dragon.y += dragon.velocityY;
-
-            if (dragon.y + dragon.height >= canvas.height) {
-                dragon.y = canvas.height - dragon.height;
-                dragon.velocityY = 0;
-                dragon.jumping = false;
-            }
-
-            if (dragon.y < 0) {
-                dragon.y = 0;
-                dragon.velocityY = 0;
-            }
-
-            obstacles.forEach((o, i) => {
-                o.x -= o.speed;
-                
-                if (dragon.x < o.x + o.width && dragon.x + dragon.width > o.x &&
-                    dragon.y < o.y + o.height && dragon.y + dragon.height > o.y) {
-                    gameRunning = false;
-                    gameOver = true;
-                    if (score > record) {
-                        record = score;
-                        localStorage.setItem('dragonRecord', record);
-                        updateRecord();
-                    }
-                }
-
-                if (o.x < -50) {
-                    obstacles.splice(i, 1);
-                    score += Math.floor(DIFFICULTIES[difficulty].multiplier);
-                    document.getElementById('scoreDisplay').textContent = score;
-                }
-            });
-
-            if (Math.random() < DIFFICULTIES[difficulty].spawnRate && gameRunning) {
-                createObstacle();
-            }
-        }
-
-        function draw() {
-            const g = ctx.createLinearGradient(0, 0, 0, canvas.height);
-            g.addColorStop(0, '#0f0033');
-            g.addColorStop(0.5, '#1a0052');
-            g.addColorStop(1, '#0f0033');
-            ctx.fillStyle = g;
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-            ctx.fillStyle = '#00FF41';
-            ctx.fillRect(0, canvas.height - 6, canvas.width, 6);
-
-            drawDragon();
-            drawObstacles();
-
-            if (gameOver) {
-                ctx.fillStyle = 'rgba(0, 0, 0, 0.75)';
-                ctx.fillRect(0, 0, canvas.width, canvas.height);
-                
-                ctx.fillStyle = '#FF0000';
-                ctx.font = 'bold ' + Math.floor(canvas.width * 0.07) + 'px Orbitron';
-                ctx.textAlign = 'center';
-                ctx.fillText('GAME OVER', canvas.width / 2, canvas.height / 2 - 25);
-                
-                ctx.fillStyle = '#00FF41';
-                ctx.font = 'bold ' + Math.floor(canvas.width * 0.04) + 'px Orbitron';
-                ctx.fillText('Score: ' + score + ' | Record: ' + record, canvas.width / 2, canvas.height / 2 + 10);
-                ctx.fillStyle = '#00F0FF';
-                ctx.font = 'normal ' + Math.floor(canvas.width * 0.03) + 'px Orbitron';
-                ctx.fillText('Clicca o premi SPAZIO per ricominciare', canvas.width / 2, canvas.height / 2 + 35);
-            }
-        }
-
-        function gameLoop() {
-            update();
-            draw();
-            requestAnimationFrame(gameLoop);
-        }
-
-        document.addEventListener('keydown', (e) => {
-            if (e.code === 'Space') {
-                e.preventDefault();
-                if (!dragon.jumping && gameRunning) {
-                    dragon.velocityY = -15;
-                    dragon.jumping = true;
-                } else if (gameOver) {
-                    resetGame();
-                }
-            }
-        });
-
-        canvas.addEventListener('click', () => {
-            if (!dragon.jumping && gameRunning) {
-                dragon.velocityY = -15;
-                dragon.jumping = true;
-            } else if (gameOver) {
-                resetGame();
-            }
-        });
-
-        canvas.addEventListener('touchstart', (e) => {
-            e.preventDefault();
-            if (!dragon.jumping && gameRunning) {
-                dragon.velocityY = -15;
-                dragon.jumping = true;
-            } else if (gameOver) {
-                resetGame();
-            }
-        });
-
-        gameLoop();
-
-        // === TWITCH ===
+        // === TWITCH EMBED ===
         var embed = new Twitch.Embed("twitch-embed", {
             width: "100%",
             height: "100%",
@@ -1983,83 +1570,54 @@
             muted: true
         });
 
-        let statusKnown = false;
-        let countdownInterval = null;
+        let currentStatus = null;
 
-        function startCountdown() {
-            const wrapper = document.getElementById('countdown-wrapper');
-            const countdownText = document.getElementById('countdown-text');
-            const timerElement = document.getElementById('countdown-timer');
-            
-            wrapper.style.display = 'block';
-            if (countdownInterval) clearInterval(countdownInterval);
-            
-            const update = () => {
-                const now = new Date();
-                const hours = now.getHours();
-                const minutes = now.getMinutes();
-                
-                let nextTime;
-                if (hours < 14 || (hours === 14 && minutes < 30)) {
-                    nextTime = new Date(now);
-                    nextTime.setHours(14, 30, 0);
-                } else if (hours < 20 || (hours === 20 && minutes < 45)) {
-                    nextTime = new Date(now);
-                    nextTime.setHours(20, 45, 0);
-                } else {
-                    nextTime = new Date(now);
-                    nextTime.setDate(nextTime.getDate() + 1);
-                    nextTime.setHours(14, 30, 0);
-                }
-                
-                const diff = nextTime - now;
-                if (diff > 0) {
-                    const h = Math.floor(diff / 3600000);
-                    const m = Math.floor((diff % 3600000) / 60000);
-                    const s = Math.floor((diff % 60000) / 1000);
-                    timerElement.textContent = `${String(h).padStart(2, '0')}h ${String(m).padStart(2, '0')}m ${String(s).padStart(2, '0')}s`;
-                    countdownText.textContent = 'PROSSIMA STREAM TRA:';
-                } else {
-                    countdownText.textContent = 'LA LIVE INIZIERÀ A BREVE!';
-                    timerElement.textContent = '';
-                }
-            };
-            update();
-            countdownInterval = setInterval(update, 1000);
-        }
+        function updateUI(isLive) {
+            if (currentStatus === isLive) return;
+            currentStatus = isLive;
 
-        function checkStatus() {
-            if (statusKnown) return;
             const btn = document.getElementById('status-btn');
             const badge = document.getElementById('live-badge');
             const title = document.getElementById('main-title');
-            
-            try {
-                const player = embed.getPlayer();
-                if (player && player.getPlaybackStats) {
-                    const stats = player.getPlaybackStats();
-                    if (stats && stats.video_res && stats.video_res !== "0x0") {
-                        statusKnown = true;
-                        btn.innerHTML = "ENTRA IN LIVE";
-                        btn.href = "https://twitch.tv/simooo_tv";
-                        btn.onclick = null;
-                        badge.style.display = "inline-block";
-                        title.innerHTML = "SIMOOO<span>TV</span> <span class='live-text'>È LIVE!</span>";
-                        return;
-                    }
-                }
-            } catch(e) {}
+            const countdownWrapper = document.getElementById('countdown-wrapper');
 
-            statusKnown = true;
-            btn.innerHTML = "SCOPRI I SOCIAL";
-            btn.classList.add('btn-explore');
-            btn.onclick = (e) => { e.preventDefault(); toggleModal(); };
-            badge.style.display = "none";
-            title.innerHTML = "SIMOOO_TV <br><span>OFFLINE</span>";
-            startCountdown();
+            if (isLive) {
+                badge.style.display = 'inline-block';
+                btn.textContent = '🔴 ENTRA IN LIVE';
+                btn.href = 'https://twitch.tv/simooo_tv';
+                btn.classList.remove('btn-explore');
+                btn.onclick = null;
+                title.innerHTML = 'SIMOOO<span>TV</span><span class="live-text">È IN ONDA ORA 🎮</span>';
+                countdownWrapper.style.display = 'none';
+            } else {
+                badge.style.display = 'none';
+                btn.textContent = ' SCOPRI I SOCIAL';
+                btn.classList.add('btn-explore');
+                btn.onclick = (e) => { e.preventDefault(); toggleModal(); };
+                btn.href = '#';
+                title.innerHTML = 'SIMOOO<span>TV</span>';
+                countdownWrapper.style.display = 'block';
+            }
         }
 
-        setTimeout(checkStatus, 3000);
+        // === CHECK STATUS REAL TIME API ===
+        async function checkLiveStatus() {
+            try {
+                const response = await fetch('https://decapi.me/twitch/uptime?channel=simooo_tv');
+                const text = await response.text();
+                
+                // Se ritorna un errore o "offline", allora è offline
+                const isLive = !text.includes('offline') && text.length > 0 && isNaN(text) === false;
+                updateUI(isLive);
+            } catch (e) {
+                console.log('Errore check live:', e);
+                updateUI(false);
+            }
+        }
+
+        // Controlla ogni 10 secondi
+        checkLiveStatus();
+        setInterval(checkLiveStatus, 10000);
 
         // === MODALS ===
         function toggleModal() { document.getElementById('socialModal').classList.toggle('active'); }
