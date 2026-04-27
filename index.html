@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="it">
 <head>
@@ -41,6 +39,10 @@
             --ig-gradient: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
             --gradient-main: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             --gradient-accent: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #1a1a2e;
+            --text-primary: #ffffff;
+            --text-secondary: #d0d0d0;
         }
 
         * { 
@@ -62,9 +64,22 @@
             font-family: 'Orbitron', sans-serif;
             color: var(--white);
             scroll-behavior: smooth;
-            -webkit-touch-callout: none;
-            -webkit-user-select: none;
-            user-select: none;
+            -webkit-user-select: auto;
+            user-select: auto;
+        }
+
+        @media (prefers-color-scheme: light) {
+            :root {
+                --bg-primary: #f5f5f5;
+                --bg-secondary: #ffffff;
+                --text-primary: #1a1a1a;
+                --text-secondary: #555555;
+            }
+
+            body {
+                background: linear-gradient(180deg, #ffffff 0%, #f0e6ff 50%, #ffffff 100%);
+                color: var(--text-primary);
+            }
         }
 
         /* ===== LOADING SCREEN ===== */
@@ -124,8 +139,8 @@
         }
 
         .loading-logo {
-            font-size: clamp(1.8rem, 15vw, 4rem);
-            font-weight: 900;
+            font-size: clamp(1.8rem, 7vw, 4rem);
+            font-weight: 800;
             letter-spacing: clamp(1px, 2vw, 15px);
             background: linear-gradient(135deg, var(--neon-cyan) 0%, var(--neon-pink) 50%, var(--neon-lime) 100%);
             -webkit-background-clip: text;
@@ -282,10 +297,10 @@
         /* ===== SCROLL TO TOP ===== */
         .scroll-to-top {
             position: fixed;
-            bottom: clamp(15px, 3vw, 30px);
-            right: clamp(15px, 3vw, 30px);
-            width: clamp(45px, 10vw, 60px);
-            height: clamp(45px, 10vw, 60px);
+            bottom: 20px;
+            right: 20px;
+            width: 55px;
+            height: 55px;
             background: linear-gradient(135deg, var(--neon-cyan) 0%, var(--neon-pink) 50%, var(--neon-lime) 100%);
             border: none;
             border-radius: 50%;
@@ -304,12 +319,12 @@
         .scroll-to-top.show { display: flex; }
 
         .scroll-to-top:hover {
-            transform: scale(1.1) translateY(-10px);
+            transform: scale(1.15) translateY(-10px);
             box-shadow: 0 0 80px rgba(0, 240, 255, 0.9);
         }
 
         .scroll-to-top i {
-            font-size: clamp(1rem, 2.5vw, 1.5rem);
+            font-size: 1.4rem;
             color: var(--white);
             animation: bounce-arrow-ultra 1.5s infinite;
             text-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
@@ -325,17 +340,428 @@
             50% { transform: translateY(-8px); }
         }
 
+        /* ===== WELCOME MODAL ===== */
+        .welcome-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(30px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10001;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.5s ease;
+            padding: 20px;
+        }
+
+        .welcome-modal.show {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .welcome-modal-content {
+            background: linear-gradient(135deg, rgba(26, 26, 46, 0.99), rgba(10, 10, 10, 0.99));
+            border: 3px solid var(--twitch);
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            max-width: 500px;
+            width: 100%;
+            box-shadow: 0 20px 80px rgba(145, 70, 255, 0.6);
+            animation: welcome-pop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        @keyframes welcome-pop {
+            from { transform: scale(0) rotate(-180deg); opacity: 0; }
+            to { transform: scale(1) rotate(0); opacity: 1; }
+        }
+
+        .welcome-modal-content::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(0, 240, 255, 0.2), transparent);
+            animation: pulse-bg 3s ease-in-out infinite;
+        }
+
+        @keyframes pulse-bg {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .welcome-modal-content > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        .welcome-emoji {
+            font-size: clamp(2rem, 8vw, 4rem);
+            margin-bottom: 15px;
+            animation: bounce-emoji 1s ease-in-out infinite;
+        }
+
+        @keyframes bounce-emoji {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        .welcome-title {
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            font-weight: 900;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, var(--neon-cyan), var(--neon-pink), var(--neon-lime));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: 1px;
+        }
+
+        .welcome-subtitle {
+            font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+            color: var(--text-secondary);
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+
+        .welcome-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .welcome-btn {
+            padding: 12px 20px;
+            border: 2px solid var(--twitch);
+            border-radius: 10px;
+            background: linear-gradient(135deg, rgba(145, 70, 255, 0.2), rgba(0, 240, 255, 0.1));
+            color: var(--white);
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: inherit;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .welcome-btn:hover {
+            background: linear-gradient(135deg, rgba(145, 70, 255, 0.4), rgba(0, 240, 255, 0.3));
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(145, 70, 255, 0.4);
+        }
+
+        .welcome-btn.primary {
+            background: linear-gradient(135deg, var(--neon-cyan) 0%, var(--neon-pink) 100%);
+            border-color: var(--neon-cyan);
+            color: var(--black);
+        }
+
+        .welcome-btn.primary:hover {
+            background: linear-gradient(135deg, var(--neon-pink) 0%, var(--neon-cyan) 100%);
+            box-shadow: 0 15px 40px rgba(0, 240, 255, 0.5);
+        }
+
+        .welcome-close {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .welcome-close:hover {
+            color: var(--neon-cyan);
+        }
+
+        /* ===== CHAT WIDGET ===== */
+        .chat-widget-toggle {
+            position: fixed;
+            bottom: 100px;
+            right: 20px;
+            width: 55px;
+            height: 55px;
+            background: linear-gradient(135deg, var(--neon-cyan), var(--neon-pink));
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 900;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            color: white;
+            box-shadow: 0 8px 25px rgba(0, 240, 255, 0.5);
+            transition: all 0.3s ease;
+            animation: pulse-chat 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse-chat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.08); }
+        }
+
+        .chat-widget-toggle:hover {
+            transform: scale(1.12);
+            box-shadow: 0 12px 35px rgba(0, 240, 255, 0.7);
+        }
+
+        .chat-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: #ff0000;
+            color: white;
+            border-radius: 50%;
+            width: 22px;
+            height: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: bold;
+        }
+
+        .chat-widget {
+            position: fixed;
+            bottom: 165px;
+            right: 20px;
+            width: 320px;
+            height: 380px;
+            background: linear-gradient(135deg, rgba(26, 26, 46, 0.98), rgba(10, 10, 10, 0.98));
+            border: 2px solid var(--twitch);
+            border-radius: 12px;
+            display: none;
+            flex-direction: column;
+            z-index: 890;
+            box-shadow: 0 15px 50px rgba(145, 70, 255, 0.4);
+            animation: slide-up 0.3s ease;
+        }
+
+        .chat-widget.active {
+            display: flex;
+        }
+
+        @keyframes slide-up {
+            from { transform: translateY(20px) scale(0.95); opacity: 0; }
+            to { transform: translateY(0) scale(1); opacity: 1; }
+        }
+
+        .chat-header {
+            padding: 12px 16px;
+            border-bottom: 1px solid var(--border-glass);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .chat-header h3 {
+            color: var(--text-primary);
+            font-size: 0.95rem;
+            margin: 0;
+        }
+
+        .chat-close {
+            background: none;
+            border: none;
+            color: var(--neon-cyan);
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .chat-close:hover {
+            transform: scale(1.2);
+            color: var(--neon-pink);
+        }
+
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .chat-msg {
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            line-height: 1.4;
+            max-width: 90%;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .chat-msg:hover {
+            transform: scale(1.02);
+        }
+
+        .chat-msg.user {
+            background: rgba(145, 70, 255, 0.3);
+            color: var(--neon-cyan);
+            align-self: flex-end;
+        }
+
+        .chat-msg.bot {
+            background: rgba(0, 240, 255, 0.1);
+            color: var(--neon-lime);
+            align-self: flex-start;
+        }
+
+        .chat-qna-buttons {
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            border-top: 1px solid var(--border-glass);
+        }
+
+        .chat-qna-btn {
+            padding: 8px 10px;
+            background: rgba(145, 70, 255, 0.2);
+            border: 1px solid var(--neon-cyan);
+            color: var(--neon-cyan);
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.75rem;
+            font-family: inherit;
+            transition: all 0.2s;
+            text-align: left;
+            white-space: normal;
+        }
+
+        .chat-qna-btn:hover {
+            background: rgba(145, 70, 255, 0.4);
+            transform: translateX(2px);
+        }
+
+        /* ===== TOAST NOTIFICATIONS ===== */
+        .toast-container {
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            z-index: 1100;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            max-width: 350px;
+        }
+
+        .toast {
+            background: linear-gradient(135deg, rgba(0, 240, 255, 0.15), rgba(145, 70, 255, 0.15));
+            border: 2px solid var(--neon-cyan);
+            padding: 12px;
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-size: 0.85rem;
+            box-shadow: 0 8px 25px rgba(0, 240, 255, 0.3);
+            animation: toast-enter 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        @keyframes toast-enter {
+            from { transform: translateX(400px) scale(0.8); opacity: 0; }
+            to { transform: translateX(0) scale(1); opacity: 1; }
+        }
+
+        .toast.success {
+            border-color: var(--neon-lime);
+            background: linear-gradient(135deg, rgba(0, 255, 65, 0.15), rgba(145, 70, 255, 0.15));
+        }
+
+        .toast-icon {
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        /* ===== SOCIAL SIDEBAR ===== */
+        .social-sidebar {
+            position: fixed;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 800;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            background: rgba(10, 10, 10, 0.9);
+            padding: 12px;
+            border-right: 2px solid var(--border-glass);
+            border-radius: 0 12px 12px 0;
+            backdrop-filter: blur(15px);
+        }
+
+        .sidebar-social {
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            position: relative;
+            background: rgba(145, 70, 255, 0.1);
+            border: 1px solid var(--border-glass);
+            text-decoration: none;
+        }
+
+        .sidebar-social:hover {
+            background: rgba(145, 70, 255, 0.3);
+            transform: scale(1.1);
+        }
+
+        .sidebar-tooltip {
+            position: absolute;
+            left: 100%;
+            margin-left: 8px;
+            background: rgba(0, 0, 0, 0.95);
+            color: var(--text-primary);
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 0.7rem;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+            border: 1px solid var(--border-glass);
+        }
+
+        .sidebar-social:hover .sidebar-tooltip {
+            opacity: 1;
+        }
+
+        @media (max-width: 768px) {
+            .social-sidebar {
+                display: none;
+            }
+        }
+
         /* ===== NAVBAR ===== */
         nav {
             position: fixed; top: 0; left: 0; width: 100%;
             display: flex; justify-content: space-between; align-items: center;
-            padding: clamp(8px, 2vw, 14px) clamp(10px, 3vw, 25px); 
+            padding: 10px 20px; 
             z-index: 1000;
             background: rgba(10, 10, 10, 0.98);
             backdrop-filter: blur(20px);
             border-bottom: 2px solid var(--twitch);
             box-shadow: 0 4px 20px rgba(145, 70, 255, 0.3);
-            gap: clamp(5px, 1.5vw, 15px);
+            gap: 10px;
             flex-wrap: wrap;
             min-height: auto;
         }
@@ -343,7 +769,7 @@
         .nav-links { 
             display: flex; 
             list-style: none; 
-            gap: clamp(8px, 1.5vw, 20px); 
+            gap: 12px; 
             flex: 1; 
             justify-content: flex-start;
             align-items: center;
@@ -354,8 +780,8 @@
         .nav-links li { display: flex; }
 
         .nav-links a { 
-            color: var(--white); 
-            font-size: clamp(0.9rem, 2vw, 1.1rem); 
+            color: var(--text-primary); 
+            font-size: 0.95rem; 
             transition: all 0.3s ease;
             display: flex;
             align-items: center;
@@ -363,8 +789,8 @@
             filter: drop-shadow(0 0 8px rgba(145, 70, 255, 0.3));
             text-decoration: none;
             border: none;
-            width: clamp(28px, 6vw, 40px);
-            height: clamp(28px, 6vw, 40px);
+            width: 35px;
+            height: 35px;
             padding: 0;
         }
 
@@ -378,18 +804,18 @@
             flex: 0 1 auto; 
             order: 2; 
             font-weight: 900; 
-            letter-spacing: clamp(0.5px, 0.8vw, 2px); 
+            letter-spacing: 1px; 
             background: linear-gradient(135deg, var(--neon-cyan), var(--neon-pink), var(--neon-lime));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            font-size: clamp(0.7rem, 1.4vw, 1rem); 
+            font-size: 0.85rem; 
             white-space: nowrap; 
             text-align: center;
             filter: drop-shadow(0 0 15px rgba(0, 240, 255, 0.5));
             animation: logo-glow-nav 3s ease-in-out infinite;
             min-width: auto;
-            padding: 0 clamp(5px, 1vw, 10px);
+            padding: 0 10px;
         }
 
         @keyframes logo-glow-nav {
@@ -411,19 +837,19 @@
             color: var(--white);
             text-decoration: none;
             box-shadow: 0 0 25px rgba(0, 168, 225, 0.6);
-            padding: clamp(6px, 1vw, 10px) clamp(8px, 1.3vw, 16px);
-            font-size: clamp(0.5rem, 0.85vw, 0.75rem);
+            padding: 8px 14px;
+            font-size: 0.7rem;
             border-radius: 6px;
             font-family: 'Orbitron', sans-serif;
             border: 2px solid rgba(0, 168, 225, 0.8);
             cursor: pointer;
             transition: all 0.3s ease;
             font-weight: bold;
-            white-space: nowrap;
+            white-space: normal;
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            gap: clamp(2px, 0.5vw, 6px);
+            gap: 4px;
             text-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
             position: relative;
             overflow: hidden;
@@ -453,14 +879,25 @@
             box-shadow: 0 0 40px rgba(23, 191, 255, 0.8);
         }
 
+        @media (max-width: 480px) {
+            .nav-prime-btn i {
+                display: none;
+            }
+            .nav-prime-btn {
+                font-size: 0.6rem;
+                padding: 6px 10px;
+            }
+        }
+
         /* ===== GAMES DATABASE ===== */
         .games-database {
-            margin-top: clamp(50px, 12vw, 75px);
-            padding: clamp(15px, 3vw, 35px) clamp(10px, 3vw, 25px);
+            margin-top: 75px;
+            padding: 20px;
             background: linear-gradient(180deg, rgba(145, 70, 255, 0.2), transparent);
             text-align: center;
             border-bottom: 2px solid rgba(145, 70, 255, 0.3);
             animation: slide-down 0.8s ease;
+            overflow: hidden;
         }
 
         @keyframes slide-down {
@@ -469,17 +906,18 @@
         }
 
         .db-title {
-            font-size: clamp(0.9rem, 2.8vw, 1.3rem); 
+            font-size: 1.2rem; 
             font-weight: 900; 
-            letter-spacing: clamp(0.5px, 1vw, 4px);
+            letter-spacing: 2px;
             background: linear-gradient(90deg, var(--neon-cyan), var(--neon-pink), var(--neon-lime));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            margin-bottom: clamp(10px, 2vw, 25px); 
+            margin-bottom: 15px; 
             text-transform: uppercase;
             filter: drop-shadow(0 0 20px rgba(0, 240, 255, 0.4));
             animation: title-bounce 2s ease-in-out infinite;
+            word-break: break-word;
         }
 
         @keyframes title-bounce {
@@ -495,23 +933,25 @@
             mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
             -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
             border-radius: 12px;
+            padding: 0 10px;
         }
 
         .marquee-content {
             display: flex; 
-            gap: clamp(15px, 3vw, 60px); 
-            padding: clamp(8px, 1.5vw, 18px) 0;
+            gap: 30px; 
+            padding: 12px 0;
             width: max-content;
             animation: scroll-right-smooth 28s linear infinite;
         }
 
         .marquee-content img { 
-            height: clamp(30px, 5vw, 60px); 
+            height: 55px; 
             filter: drop-shadow(0 0 12px rgba(145, 70, 255, 0.5)) brightness(0.95);
             border-radius: 8px;
             transition: all 0.3s;
             animation: img-pulse 3s ease-in-out infinite;
             flex-shrink: 0;
+            object-fit: contain;
         }
 
         .marquee-content img:hover {
@@ -534,8 +974,8 @@
             display: flex; 
             flex-direction: column; 
             align-items: center;
-            padding: clamp(20px, 4vw, 50px) clamp(10px, 3vw, 25px); 
-            gap: clamp(15px, 4vw, 40px); 
+            padding: 30px 15px; 
+            gap: 25px; 
             text-align: center;
             animation: fade-in 0.8s ease;
         }
@@ -551,16 +991,16 @@
             display: flex; 
             align-items: center; 
             justify-content: center;
-            gap: clamp(6px, 1.5vw, 15px); 
-            margin-bottom: clamp(10px, 2vw, 25px); 
+            gap: 12px; 
+            margin-bottom: 15px; 
             flex-wrap: wrap;
         }
 
         .live-badge {
             background: linear-gradient(135deg, #ff0000 0%, #cc0000 100%);
             color: white; 
-            padding: clamp(5px, 0.9vw, 10px) clamp(8px, 1.5vw, 20px);
-            font-size: clamp(0.6rem, 1vw, 0.8rem); 
+            padding: 6px 14px;
+            font-size: 0.75rem; 
             font-weight: 900; 
             border-radius: 5px;
             display: none; 
@@ -582,13 +1022,13 @@
             flex-direction: column; 
             align-items: center; 
             justify-content: center; 
-            margin-bottom: clamp(8px, 1.5vw, 16px);
+            margin-bottom: 12px;
         }
 
         .hero-title {
-            font-size: clamp(1.3rem, 5vw, 3.5rem); 
+            font-size: clamp(1.5rem, 4.5vw, 3rem); 
             font-weight: 900;
-            line-height: 1; 
+            line-height: 1.1; 
             transition: all 0.5s ease;
             margin-bottom: 0;
             background: linear-gradient(135deg, var(--white) 0%, var(--neon-cyan) 100%);
@@ -598,6 +1038,8 @@
             filter: drop-shadow(0 0 25px rgba(0, 240, 255, 0.3));
             animation: title-float 3s ease-in-out infinite;
             word-break: break-word;
+            max-width: 100%;
+            overflow-wrap: break-word;
         }
 
         @keyframes title-float {
@@ -607,11 +1049,12 @@
 
         .hero-title span { 
             color: transparent; 
-            -webkit-text-stroke: 1.5px var(--neon-pink);
+            -webkit-text-stroke: 1px var(--neon-pink);
             background: none;
             -webkit-background-clip: unset;
             -webkit-text-fill-color: transparent;
             animation: stroke-glow 2s ease-in-out infinite;
+            display: inline;
         }
 
         @keyframes stroke-glow {
@@ -621,13 +1064,13 @@
 
         .hero-title .live-text { 
             display: block; 
-            font-size: clamp(0.8rem, 3vw, 1.6rem); 
+            font-size: clamp(0.9rem, 2.5vw, 1.4rem); 
             color: var(--twitch); 
             -webkit-text-stroke: 0;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background: linear-gradient(135deg, var(--neon-lime), var(--neon-pink));
-            margin-top: clamp(4px, 1vw, 10px);
+            margin-top: 6px;
             animation: glow-pulse-ultra 2s infinite;
         }
 
@@ -638,20 +1081,20 @@
 
         .countdown-container { 
             display: block; 
-            margin-bottom: clamp(10px, 2vw, 25px); 
-            font-size: clamp(0.7rem, 1.4vw, 0.95rem); 
+            margin-bottom: 15px; 
+            font-size: 0.85rem; 
             letter-spacing: 0.8px; 
-            color: #bbb;
+            color: var(--text-secondary);
             animation: fade-in 0.8s ease;
         }
 
         .countdown-container .time { 
             display: block; 
-            font-size: clamp(1rem, 3.5vw, 2rem); 
+            font-size: clamp(0.95rem, 2.5vw, 1.5rem); 
             color: var(--neon-pink); 
             font-weight: 900; 
             text-shadow: 0 0 20px var(--neon-pink);
-            margin-top: clamp(2px, 0.5vw, 6px);
+            margin-top: 4px;
             animation: time-pulse 1s ease-in-out infinite;
             word-break: break-word;
         }
@@ -664,10 +1107,10 @@
         .btn-live {
             background: linear-gradient(135deg, var(--white), #f0f0f0);
             color: var(--black); 
-            padding: clamp(7px, 1.2vw, 13px) clamp(14px, 2.5vw, 32px); 
+            padding: 10px 20px; 
             text-decoration: none; 
             font-weight: 900;
-            font-size: clamp(0.65rem, 1.2vw, 0.85rem); 
+            font-size: 0.75rem; 
             display: inline-block; 
             text-transform: uppercase; 
             transition: all 0.3s ease;
@@ -708,9 +1151,9 @@
 
         .hero-socials { 
             display: flex; 
-            gap: clamp(10px, 3vw, 25px); 
+            gap: 15px; 
             justify-content: center; 
-            margin-top: clamp(12px, 2vw, 30px);
+            margin-top: 15px;
             animation: socials-fade-in 0.8s ease 0.3s both;
             flex-wrap: wrap;
         }
@@ -721,8 +1164,8 @@
         }
 
         .hero-socials a { 
-            color: var(--white); 
-            font-size: clamp(1.4rem, 3.5vw, 2rem); 
+            color: var(--text-primary); 
+            font-size: 1.6rem; 
             transition: all 0.3s ease;
             filter: drop-shadow(0 0 12px rgba(145, 70, 255, 0.4));
             animation: social-bounce 2s ease-in-out infinite;
@@ -746,7 +1189,7 @@
             filter: drop-shadow(0 0 25px var(--neon-cyan));
         }
 
-        .hero-support-btn { margin-top: clamp(8px, 2vw, 25px); }
+        .hero-support-btn { margin-top: 15px; }
 
         .live-container {
             width: 100%; 
@@ -768,32 +1211,202 @@
             to { opacity: 1; transform: scale(1); }
         }
 
-        /* ===== INFO SECTION ===== */
-        .info-section {
-            padding: clamp(20px, 5vw, 60px) clamp(10px, 3vw, 25px);
+        /* ===== STATS SECTION ===== */
+        .stats-section {
             display: grid;
-            grid-template-columns: 1fr;
-            gap: clamp(15px, 3vw, 40px);
-            max-width: 1500px;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 25px;
+            padding: 50px 20px;
+            background: linear-gradient(180deg, rgba(145, 70, 255, 0.08), transparent);
+            max-width: 1200px;
             margin: 0 auto;
         }
 
-        @media (min-width: 768px) {
-            .info-section {
-                grid-template-columns: 1fr 1fr;
+        .stat-item {
+            text-align: center;
+            padding: 25px;
+            background: var(--glass);
+            border: 2px solid var(--border-glass);
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            animation: stat-fade 0.6s ease both;
+        }
+
+        @keyframes stat-fade {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .stat-item:nth-child(1) { animation-delay: 0.1s; }
+        .stat-item:nth-child(2) { animation-delay: 0.2s; }
+        .stat-item:nth-child(3) { animation-delay: 0.3s; }
+
+        .stat-item:hover {
+            background: var(--glass-hover);
+            border-color: var(--neon-cyan);
+            transform: translateY(-5px);
+        }
+
+        .stat-number {
+            font-size: 2.2rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--neon-cyan), var(--neon-pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+        }
+
+        .stat-item p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin: 0;
+        }
+
+        /* ===== TIMELINE ===== */
+        .timeline-section {
+            padding: 60px 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+            border-top: 2px solid var(--border-glass);
+        }
+
+        .timeline-section h2 {
+            text-align: center;
+            font-size: 1.8rem;
+            margin-bottom: 40px;
+            background: linear-gradient(135deg, var(--neon-cyan), var(--neon-pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .timeline {
+            position: relative;
+            padding: 30px 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 100%;
+            background: linear-gradient(180deg, var(--twitch), transparent);
+        }
+
+        @media (max-width: 768px) {
+            .timeline::before {
+                left: 15px;
             }
         }
 
-        @media (min-width: 1024px) {
-            .info-section {
-                grid-template-columns: 1fr 1fr 1fr;
+        .timeline-item {
+            margin-bottom: 40px;
+            position: relative;
+            display: flex;
+            gap: 30px;
+            animation: timeline-fade 0.6s ease both;
+        }
+
+        .timeline-item:nth-child(1) { animation-delay: 0.1s; }
+        .timeline-item:nth-child(2) { animation-delay: 0.2s; }
+        .timeline-item:nth-child(3) { animation-delay: 0.3s; }
+
+        @keyframes timeline-fade {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 768px) {
+            .timeline-item {
+                flex-direction: column-reverse;
+                gap: 15px;
+                margin-left: 40px;
             }
+        }
+
+        .timeline-dot {
+            width: 20px;
+            height: 20px;
+            background: var(--twitch);
+            border: 3px solid var(--black);
+            border-radius: 50%;
+            position: absolute;
+            left: 50%;
+            top: 8px;
+            transform: translateX(-50%);
+            z-index: 2;
+        }
+
+        .timeline-item.completed .timeline-dot {
+            background: var(--neon-lime);
+            box-shadow: 0 0 20px var(--neon-lime);
+        }
+
+        .timeline-item.in-progress .timeline-dot {
+            background: var(--neon-cyan);
+            box-shadow: 0 0 20px var(--neon-cyan);
+            animation: pulse-dot 1.5s ease-in-out infinite;
+        }
+
+        @keyframes pulse-dot {
+            0%, 100% { transform: translateX(-50%) scale(1); }
+            50% { transform: translateX(-50%) scale(1.2); }
+        }
+
+        .timeline-item.pending .timeline-dot {
+            background: rgba(145, 70, 255, 0.5);
+        }
+
+        .timeline-content {
+            background: linear-gradient(135deg, rgba(145, 70, 255, 0.1), rgba(0, 240, 255, 0.05));
+            border: 2px solid var(--border-glass);
+            padding: 20px;
+            border-radius: 12px;
+            flex: 1;
+            transition: all 0.3s ease;
+        }
+
+        .timeline-content:hover {
+            border-color: var(--neon-cyan);
+            background: linear-gradient(135deg, rgba(145, 70, 255, 0.15), rgba(0, 240, 255, 0.1));
+            transform: translateY(-4px);
+        }
+
+        .timeline-content h3 {
+            color: var(--text-primary);
+            font-size: 1.2rem;
+            margin: 0 0 8px 0;
+        }
+
+        .timeline-content p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin: 0 0 6px 0;
+        }
+
+        .timeline-content time {
+            color: var(--neon-cyan);
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        /* ===== INFO SECTION ===== */
+        .info-section {
+            padding: 40px 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            max-width: 1500px;
+            margin: 0 auto;
         }
 
         .info-card {
             background: var(--glass);
             border: 2px solid var(--border-glass);
-            padding: clamp(12px, 2.5vw, 28px);
+            padding: 20px;
             border-radius: 14px;
             backdrop-filter: blur(15px);
             display: flex;
@@ -824,9 +1437,9 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            margin-bottom: clamp(8px, 1.5vw, 18px); 
-            font-size: clamp(0.9rem, 2.3vw, 1.3rem); 
-            letter-spacing: clamp(0.3px, 0.5vw, 2px); 
+            margin-bottom: 15px; 
+            font-size: 1.2rem; 
+            letter-spacing: 1px; 
             text-align: center;
             filter: drop-shadow(0 0 15px rgba(0, 255, 65, 0.3));
             text-transform: uppercase;
@@ -834,10 +1447,10 @@
 
         .info-card p { 
             line-height: 1.6; 
-            color: #d0d0d0; 
-            margin-bottom: clamp(8px, 1.5vw, 15px);
+            color: var(--text-secondary); 
+            margin-bottom: 12px;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-            font-size: clamp(0.75rem, 1.1vw, 0.9rem);
+            font-size: 0.9rem;
         }
 
         .specs-list { 
@@ -851,11 +1464,11 @@
         }
 
         .specs-list li { 
-            padding: clamp(6px, 1vw, 10px);
+            padding: 8px;
             border-bottom: 1px solid rgba(145, 70, 255, 0.2);
             display: flex;
             justify-content: space-between;
-            font-size: clamp(0.65rem, 0.9vw, 0.85rem);
+            font-size: 0.85rem;
             transition: all 0.3s;
             gap: 6px;
             break-inside: avoid;
@@ -882,7 +1495,7 @@
             box-shadow: 0 0 40px rgba(225, 48, 108, 0.3), inset 0 0 30px rgba(225, 48, 108, 0.06);
             display: flex;
             flex-direction: column;
-            gap: clamp(10px, 2vw, 20px);
+            gap: 15px;
             transition: all 0.3s ease;
         }
 
@@ -894,10 +1507,10 @@
         .ig-featured-title { 
             font-family: 'Orbitron', sans-serif; 
             text-align: center; 
-            color: #fff; 
+            color: var(--text-primary); 
             letter-spacing: 1px; 
             margin-bottom: 0;
-            font-size: clamp(0.8rem, 1.8vw, 1.1rem);
+            font-size: 1rem;
             text-transform: uppercase;
         }
 
@@ -912,13 +1525,13 @@
             display: flex; 
             flex-direction: column; 
             align-items: center; 
-            gap: clamp(8px, 1.5vw, 15px); 
+            gap: 12px; 
             text-align: center;
         }
 
         .ig-avatar-large { 
-            width: clamp(50px, 10vw, 90px); 
-            height: clamp(50px, 10vw, 90px); 
+            width: 80px; 
+            height: 80px; 
             border-radius: 50%; 
             padding: 3px; 
             background: var(--ig-gradient); 
@@ -941,8 +1554,8 @@
         
         .ig-user-info h3 { 
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; 
-            font-size: clamp(0.85rem, 2vw, 1.2rem); 
-            margin-bottom: clamp(4px, 0.8vw, 8px); 
+            font-size: 1.1rem; 
+            margin-bottom: 6px; 
             display: flex; 
             align-items: center; 
             justify-content: center; 
@@ -952,10 +1565,10 @@
 
         .ig-stats { 
             display: flex; 
-            gap: clamp(8px, 1.5vw, 18px); 
+            gap: 12px; 
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; 
-            font-size: clamp(0.6rem, 1vw, 0.8rem); 
-            color: #d0d0d0; 
+            font-size: 0.75rem; 
+            color: var(--text-secondary); 
             justify-content: center;
             flex-wrap: wrap;
         }
@@ -963,7 +1576,7 @@
         .ig-stats div { 
             text-align: center;
             transition: all 0.3s;
-            padding: clamp(4px, 0.8vw, 8px) clamp(6px, 1vw, 10px);
+            padding: 6px 8px;
             border-radius: 5px;
         }
 
@@ -976,7 +1589,7 @@
         .ig-stats span { 
             display: block; 
             font-weight: bold; 
-            font-size: clamp(0.8rem, 1.4vw, 1rem); 
+            font-size: 0.95rem; 
             color: var(--white);
         }
         
@@ -986,21 +1599,21 @@
             display: flex; 
             flex-direction: column; 
             justify-content: space-between; 
-            gap: clamp(8px, 1.5vw, 18px);
+            gap: 12px;
         }
 
         .ig-bio { 
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; 
-            font-size: clamp(0.7rem, 1.2vw, 0.9rem); 
+            font-size: 0.9rem; 
             line-height: 1.5; 
             color: #e0e0e0;
         }
 
-        .ig-bio p { margin-bottom: clamp(1px, 0.5vw, 4px); }
+        .ig-bio p { margin-bottom: 2px; }
 
         .ig-bio a { 
             color: #0095f6; 
-            text-decoration: none; 
+            text-decoration: underline;
             font-weight: bold;
             transition: all 0.3s;
         }
@@ -1015,11 +1628,11 @@
             text-align: center; 
             background: var(--ig-gradient); 
             color: white; 
-            padding: clamp(7px, 1.2vw, 11px) clamp(12px, 2vw, 24px); 
+            padding: 10px 20px; 
             text-decoration: none; 
             border-radius: 24px; 
             font-weight: bold; 
-            font-size: clamp(0.7rem, 1.2vw, 0.85rem);
+            font-size: 0.8rem;
             transition: all 0.3s ease;
             box-shadow: 0 8px 25px rgba(225, 48, 108, 0.4), inset 0 0 15px rgba(255,255,255,0.1);
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -1053,9 +1666,107 @@
             border-color: white;
         }
 
+        /* ===== FAQ SECTION ===== */
+        .faq-section {
+            padding: 50px 20px;
+            max-width: 900px;
+            margin: 0 auto;
+            border-top: 2px solid var(--border-glass);
+        }
+
+        .faq-section h2 {
+            text-align: center;
+            font-size: 1.6rem;
+            margin-bottom: 40px;
+            background: linear-gradient(135deg, var(--neon-cyan), var(--neon-pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .faq-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .faq-item {
+            background: var(--glass);
+            border: 2px solid var(--border-glass);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            animation: faq-fade 0.6s ease both;
+        }
+
+        @keyframes faq-fade {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .faq-item:nth-child(1) { animation-delay: 0.1s; }
+        .faq-item:nth-child(2) { animation-delay: 0.2s; }
+        .faq-item:nth-child(3) { animation-delay: 0.3s; }
+        .faq-item:nth-child(4) { animation-delay: 0.4s; }
+        .faq-item:nth-child(5) { animation-delay: 0.5s; }
+
+        .faq-item:hover {
+            border-color: var(--neon-cyan);
+            background: var(--glass-hover);
+        }
+
+        .faq-question {
+            width: 100%;
+            padding: 16px;
+            background: transparent;
+            border: none;
+            color: var(--text-primary);
+            font-size: 1rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: bold;
+            transition: all 0.3s;
+            font-family: inherit;
+        }
+
+        .faq-question:hover {
+            color: var(--neon-cyan);
+        }
+
+        .faq-question i {
+            transition: transform 0.3s ease;
+            color: var(--neon-cyan);
+        }
+
+        .faq-item.active .faq-question i {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            padding: 0 16px;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 500px;
+            padding: 0 16px 16px;
+        }
+
+        .faq-answer p {
+            color: var(--text-secondary);
+            margin: 0;
+            line-height: 1.6;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            font-size: 0.9rem;
+        }
+
         /* ===== CALENDARIO ===== */
         .calendar-section { 
-            padding: clamp(20px, 5vw, 60px) clamp(10px, 3vw, 25px); 
+            padding: 40px 20px; 
             text-align: center; 
             border-top: 2px solid rgba(145, 70, 255, 0.3);
             background: linear-gradient(180deg, transparent, rgba(145, 70, 255, 0.08));
@@ -1063,7 +1774,7 @@
         }
 
         .calendar-container { 
-            max-width: 1000px; 
+            max-width: 1200px; 
             margin: 0 auto; 
             border: 3px solid var(--twitch); 
             border-radius: 14px; 
@@ -1093,16 +1804,16 @@
 
         /* ===== FOOTER ===== */
         footer {
-            padding: clamp(15px, 5vw, 40px) clamp(10px, 3vw, 25px);
+            padding: 25px 20px;
             text-align: center;
             border-top: 2px solid var(--border-glass);
             background: linear-gradient(180deg, transparent, rgba(145, 70, 255, 0.08));
-            color: #777;
-            font-size: clamp(0.6rem, 0.9vw, 0.75rem);
+            color: var(--text-secondary);
+            font-size: 0.85rem;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
         }
 
-        footer p { margin-bottom: clamp(3px, 0.8vw, 6px); transition: all 0.3s; }
+        footer p { margin-bottom: 4px; transition: all 0.3s; }
         footer p:hover { color: var(--neon-cyan); }
 
         /* ===== MODALS ===== */
@@ -1120,7 +1831,7 @@
             z-index: 10000; 
             opacity: 0; 
             transition: all 0.3s ease;
-            padding: clamp(10px, 2vw, 20px);
+            padding: 15px;
             overflow-y: auto;
         }
 
@@ -1132,12 +1843,12 @@
         .modal-content { 
             background: linear-gradient(135deg, rgba(26, 26, 46, 0.99), rgba(10, 10, 10, 0.99));
             border: 3px solid var(--twitch); 
-            padding: clamp(16px, 3vw, 32px) clamp(12px, 2.5vw, 28px); 
+            padding: 24px; 
             border-radius: 14px; 
             text-align: center; 
             width: 100%;
-            max-width: 500px; 
-            max-height: 90vh; 
+            max-width: 400px;
+            max-height: 80vh; 
             overflow-y: auto;
             box-shadow: 0 20px 60px rgba(145, 70, 255, 0.4);
             animation: modal-enter 0.3s ease;
@@ -1154,8 +1865,8 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            font-size: clamp(1rem, 2vw, 1.2rem);
-            margin-bottom: clamp(12px, 2vw, 22px);
+            font-size: 1.1rem;
+            margin-bottom: 18px;
             letter-spacing: 0.6px;
             text-transform: uppercase;
         }
@@ -1163,31 +1874,31 @@
         .social-grid { 
             display: grid; 
             grid-template-columns: 1fr; 
-            gap: clamp(6px, 1.2vw, 11px); 
-            margin-top: clamp(12px, 2vw, 24px);
+            gap: 10px; 
+            margin-top: 15px;
         }
 
         .social-item { 
             background: linear-gradient(135deg, rgba(0, 240, 255, 0.08), rgba(145, 70, 255, 0.08));
-            padding: clamp(8px, 1.5vw, 14px); 
+            padding: 12px; 
             border-radius: 10px; 
             text-decoration: none; 
             color: white; 
             transition: all 0.3s ease;
             display: flex; 
             flex-direction: column; 
-            gap: clamp(4px, 0.8vw, 8px); 
+            gap: 6px; 
             align-items: center;
             border: 2px solid rgba(145, 70, 255, 0.35);
             box-shadow: 0 4px 15px rgba(145, 70, 255, 0.2);
             font-weight: bold;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-            font-size: clamp(0.75rem, 1.3vw, 0.85rem);
+            font-size: 0.8rem;
             cursor: pointer;
         }
 
         .social-item i { 
-            font-size: clamp(1.2rem, 2.8vw, 1.6rem);
+            font-size: 1.3rem;
         }
 
         .social-item:hover { 
@@ -1198,11 +1909,11 @@
         }
 
         .close-modal { 
-            margin-top: clamp(12px, 2vw, 24px); 
+            margin-top: 16px; 
             background: linear-gradient(135deg, rgba(0, 240, 255, 0.1), rgba(255, 0, 255, 0.08)); 
             border: 2px solid rgba(0, 240, 255, 0.4); 
             color: var(--neon-cyan); 
-            padding: clamp(6px, 1vw, 11px) clamp(12px, 2vw, 24px); 
+            padding: 10px 18px; 
             cursor: pointer; 
             font-family: 'Orbitron'; 
             transition: all 0.3s ease;
@@ -1210,7 +1921,7 @@
             border-radius: 8px;
             font-weight: bold;
             letter-spacing: 0.8px;
-            font-size: clamp(0.65rem, 1.1vw, 0.8rem);
+            font-size: 0.75rem;
             text-transform: uppercase;
         }
 
@@ -1225,23 +1936,23 @@
         .prime-tutorial {
             text-align: left;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-            color: #d0d0d0;
-            font-size: clamp(0.7rem, 1.1vw, 0.85rem);
+            color: var(--text-secondary);
+            font-size: 0.8rem;
             line-height: 1.5;
-            margin: clamp(12px, 2vw, 20px) 0;
+            margin: 15px 0;
             background: rgba(0, 168, 225, 0.08);
-            padding: clamp(10px, 1.5vw, 18px);
+            padding: 15px;
             border-radius: 10px;
             border: 2px solid rgba(0, 168, 225, 0.4);
         }
 
         .prime-tutorial ol { 
-            margin-top: clamp(6px, 1.2vw, 10px); 
-            padding-left: clamp(12px, 1.5vw, 18px);
+            margin-top: 8px; 
+            padding-left: 18px;
         }
 
         .prime-tutorial li { 
-            margin-bottom: clamp(4px, 0.8vw, 8px);
+            margin-bottom: 6px;
             transition: all 0.3s;
         }
 
@@ -1251,54 +1962,251 @@
         }
 
         /* ===== RESPONSIVE FIXES ===== */
-        @media (max-width: 600px) {
-            nav {
-                flex-direction: column;
-                gap: clamp(6px, 1.2vw, 10px);
-                padding: clamp(6px, 1.5vw, 10px) clamp(8px, 2.5vw, 15px);
+        @media (max-width: 768px) {
+            .scroll-to-top {
+                width: 50px;
+                height: 50px;
+                bottom: 15px;
+                right: 15px;
             }
 
-            .nav-links { order: 1; flex: 1 100%; justify-content: center; }
-            .logo-text { order: 2; flex: 1 100%; padding: 0; }
-            .nav-right { order: 3; flex: 1 100%; width: 100%; }
-
-            .nav-prime-btn i { display: none; }
-            .nav-prime-btn { font-size: clamp(0.5rem, 0.8vw, 0.7rem); padding: clamp(4px, 0.7vw, 7px) clamp(6px, 1vw, 11px); }
-
-            .info-section {
-                grid-template-columns: 1fr;
-                padding: clamp(15px, 3vw, 30px) clamp(8px, 2.5vw, 20px);
+            .scroll-to-top i {
+                font-size: 1.1rem;
             }
 
-            .specs-list { column-count: 1; }
-
-            .social-grid[style*="grid-template-columns: 1fr 1fr"] {
-                grid-template-columns: 1fr !important;
+            .chat-widget-toggle {
+                width: 50px;
+                height: 50px;
+                bottom: 90px;
+                right: 15px;
+                font-size: 1.1rem;
             }
 
-            .hero {
-                padding: clamp(15px, 3vw, 35px) clamp(8px, 2.5vw, 18px);
-            }
-        }
-
-        @media (max-width: 400px) {
-            .loading-logo {
-                font-size: clamp(1.5rem, 12vw, 2.5rem);
-                letter-spacing: clamp(0.5px, 1.5vw, 3px);
+            .chat-widget {
+                width: 90vw;
+                height: 350px;
+                bottom: 145px;
+                right: 5vw;
             }
 
             nav {
-                padding: clamp(5px, 1vw, 8px) clamp(6px, 2vw, 12px);
+                padding: 8px 15px;
             }
 
-            .hero-title {
-                font-size: clamp(1.1rem, 4.5vw, 2.5rem);
+            .nav-links {
+                gap: 8px;
             }
 
             .nav-links a {
-                width: clamp(24px, 5vw, 32px);
-                height: clamp(24px, 5vw, 32px);
-                font-size: clamp(0.75rem, 1.5vw, 0.9rem);
+                width: 32px;
+                height: 32px;
+                font-size: 0.85rem;
+            }
+
+            .logo-text {
+                font-size: 0.75rem;
+                padding: 0 8px;
+            }
+
+            .nav-prime-btn {
+                font-size: 0.6rem;
+                padding: 6px 10px;
+            }
+
+            .hero-title {
+                font-size: clamp(1.3rem, 4vw, 2rem);
+            }
+
+            .hero-socials {
+                gap: 12px;
+            }
+
+            .hero-socials a {
+                font-size: 1.4rem;
+            }
+
+            .btn-live {
+                padding: 8px 16px;
+                font-size: 0.7rem;
+            }
+
+            .modal-content {
+                max-width: 90vw;
+            }
+
+            .welcome-modal-content {
+                max-width: 90vw;
+                padding: 30px;
+            }
+
+            .welcome-title {
+                font-size: clamp(1.2rem, 3.5vw, 2rem);
+            }
+
+            .timeline::before {
+                left: 15px;
+            }
+
+            .timeline-item {
+                margin-bottom: 30px;
+                gap: 20px;
+            }
+
+            .stats-section {
+                grid-template-columns: 1fr;
+                gap: 15px;
+                padding: 30px 15px;
+            }
+
+            .info-section {
+                grid-template-columns: 1fr;
+                gap: 15px;
+                padding: 20px 15px;
+            }
+
+            .faq-question {
+                font-size: 0.9rem;
+                padding: 12px;
+            }
+
+            .faq-answer p {
+                font-size: 0.8rem;
+            }
+
+            .calendar-section {
+                padding: 25px 15px;
+            }
+
+            .games-database {
+                padding: 15px;
+                margin-top: 60px;
+            }
+
+            .db-title {
+                font-size: 1rem;
+            }
+
+            .hero {
+                padding: 20px 12px;
+                gap: 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav-links {
+                gap: 6px;
+            }
+
+            .nav-links a {
+                width: 30px;
+                height: 30px;
+                font-size: 0.8rem;
+            }
+
+            .logo-text {
+                font-size: 0.7rem;
+            }
+
+            .nav-prime-btn {
+                font-size: 0.55rem;
+                padding: 5px 8px;
+            }
+
+            .hero-title {
+                font-size: clamp(1.2rem, 3.5vw, 1.6rem);
+            }
+
+            .hero-socials {
+                gap: 10px;
+            }
+
+            .hero-socials a {
+                font-size: 1.2rem;
+            }
+
+            .countdown-container {
+                font-size: 0.75rem;
+            }
+
+            .countdown-container .time {
+                font-size: clamp(0.85rem, 2vw, 1rem);
+            }
+
+            .stats-section {
+                gap: 12px;
+                padding: 20px 12px;
+            }
+
+            .stat-number {
+                font-size: 1.8rem;
+            }
+
+            .stat-item p {
+                font-size: 0.8rem;
+            }
+
+            .modal-content {
+                max-width: 95vw;
+                padding: 18px;
+            }
+
+            .welcome-modal-content {
+                max-width: 95vw;
+                padding: 20px;
+            }
+
+            .modal-content h2 {
+                font-size: 0.95rem;
+            }
+
+            .welcome-title {
+                font-size: clamp(1.1rem, 3vw, 1.5rem);
+            }
+
+            .social-item {
+                font-size: 0.75rem;
+                padding: 10px;
+            }
+
+            .faq-question {
+                font-size: 0.85rem;
+                padding: 12px;
+            }
+
+            .timeline-section {
+                padding: 30px 15px;
+            }
+
+            .timeline-section h2 {
+                font-size: 1.3rem;
+            }
+
+            .chat-widget {
+                width: 95vw;
+                height: 320px;
+                right: 2.5vw;
+                bottom: 135px;
+            }
+
+            .chat-header h3 {
+                font-size: 0.85rem;
+            }
+
+            .chat-msg {
+                font-size: 0.75rem;
+            }
+
+            .chat-qna-btn {
+                font-size: 0.7rem;
+                padding: 6px 8px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
             }
         }
     </style>
@@ -1321,21 +2229,86 @@
         </div>
     </div>
 
+    <!-- WELCOME MODAL -->
+    <div class="welcome-modal" id="welcomeModal">
+        <div class="welcome-modal-content">
+            <div class="welcome-emoji">🎮</div>
+            <h2 class="welcome-title">Ciao honey! 👋</h2>
+            <p class="welcome-subtitle">Benvenuto su Simooo_TV! Unisciti alla community e segui i miei stream live ogni giorno!</p>
+            <div class="welcome-actions">
+                <button class="welcome-btn primary" onclick="scrollToTop(); closeWelcome();">🔴 Guarda Stream</button>
+                <button class="welcome-btn" onclick="toggleModal(); closeWelcome();">👥 Social Media</button>
+            </div>
+            <p class="welcome-close" onclick="closeWelcome();">Ho capito! ✕</p>
+        </div>
+    </div>
+
     <!-- Scroll to Top Button -->
-    <button class="scroll-to-top" id="scrollToTop" onclick="scrollToTop()">
+    <button class="scroll-to-top" id="scrollToTop" onclick="scrollToTop()" aria-label="Torna in alto">
         <i class="fas fa-arrow-up"></i>
     </button>
+
+    <!-- Chat Widget Toggle -->
+    <button class="chat-widget-toggle" id="chatToggle" onclick="toggleChat()" aria-label="Apri chat">
+        <i class="fas fa-comments"></i>
+        <span class="chat-badge">!</span>
+    </button>
+
+    <!-- Chat Widget -->
+    <div class="chat-widget" id="chatWidget">
+        <div class="chat-header">
+            <h3>💬 CHAT</h3>
+            <button class="chat-close" onclick="toggleChat()" aria-label="Chiudi chat">✕</button>
+        </div>
+        <div class="chat-messages">
+            <p class="chat-msg bot">Ciao! Fai una domanda 👇</p>
+        </div>
+        <div class="chat-qna-buttons">
+            <button class="chat-qna-btn" onclick="selectQA(0)">❓ A che orari fai stream?</button>
+            <button class="chat-qna-btn" onclick="selectQA(1)">🎮 Quali giochi streammi?</button>
+            <button class="chat-qna-btn" onclick="selectQA(2)">💰 Posso abbonarmi gratis?</button>
+            <button class="chat-qna-btn" onclick="selectQA(3)">📊 Quali sono le tue specs?</button>
+            <button class="chat-qna-btn" onclick="selectQA(4)">🎯 Quali sono i tuoi progetti?</button>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- Social Sidebar -->
+    <aside class="social-sidebar" aria-label="Social media">
+        <a href="#home" class="sidebar-social" aria-label="Home" onclick="scrollToSection('home')">
+            <i class="fas fa-home"></i>
+            <span class="sidebar-tooltip">Home</span>
+        </a>
+        <a href="#stats" class="sidebar-social" aria-label="Statistiche" onclick="scrollToSection('stats')">
+            <i class="fas fa-chart-bar"></i>
+            <span class="sidebar-tooltip">Stats</span>
+        </a>
+        <a href="#canale" class="sidebar-social" aria-label="Canale" onclick="scrollToSection('canale')">
+            <i class="fas fa-tv"></i>
+            <span class="sidebar-tooltip">Canale</span>
+        </a>
+        <a href="https://twitch.tv/simooo_tv" target="_blank" rel="noopener noreferrer" class="sidebar-social twitch" aria-label="Twitch">
+            <i class="fab fa-twitch"></i>
+            <span class="sidebar-tooltip">Twitch</span>
+        </a>
+        <a href="https://instagram.com/simooo_tv" target="_blank" rel="noopener noreferrer" class="sidebar-social instagram" aria-label="Instagram">
+            <i class="fab fa-instagram"></i>
+            <span class="sidebar-tooltip">Instagram</span>
+        </a>
+    </aside>
 
     <!-- Modal Sociale -->
     <div class="modal-overlay" id="socialModal">
         <div class="modal-content">
             <h2>COLLEGAMENTI</h2>
             <div class="social-grid">
-                <a href="https://instagram.com/simooo_tv" target="_blank" class="social-item"><i class="fab fa-instagram" style="color:var(--instagram);"></i><span>Instagram</span></a>
-                <a href="https://tiktok.com/@simooo_tv" target="_blank" class="social-item"><i class="fab fa-tiktok"></i><span>TikTok</span></a>
-                <a href="https://youtube.com/@simooo_tv" target="_blank" class="social-item"><i class="fab fa-youtube" style="color:#ff0000;"></i><span>YouTube</span></a>
-                <a href="https://discord.gg/837xJyh6Ap" target="_blank" class="social-item"><i class="fab fa-discord" style="color:#7289da;"></i><span>Discord</span></a>
-                <a href="https://twitch.tv/simooo_tv" target="_blank" class="social-item"><i class="fab fa-twitch" style="color:#9146FF;"></i><span>Twitch</span></a>
+                <a href="https://instagram.com/simooo_tv" target="_blank" rel="noopener noreferrer" class="social-item"><i class="fab fa-instagram" style="color:var(--instagram);"></i><span>Instagram</span></a>
+                <a href="https://tiktok.com/@simooo_tv" target="_blank" rel="noopener noreferrer" class="social-item"><i class="fab fa-tiktok"></i><span>TikTok</span></a>
+                <a href="https://youtube.com/@simooo_tv" target="_blank" rel="noopener noreferrer" class="social-item"><i class="fab fa-youtube" style="color:#ff0000;"></i><span>YouTube</span></a>
+                <a href="https://discord.gg/837xJyh6Ap" target="_blank" rel="noopener noreferrer" class="social-item"><i class="fab fa-discord" style="color:#7289da;"></i><span>Discord</span></a>
+                <a href="https://twitch.tv/simooo_tv" target="_blank" rel="noopener noreferrer" class="social-item"><i class="fab fa-twitch" style="color:#9146FF;"></i><span>Twitch</span></a>
             </div>
             <button class="close-modal" onclick="toggleModal()">TORNA INDIETRO</button>
         </div>
@@ -1346,10 +2319,10 @@
         <div class="modal-content">
             <h2>SUPPORTA IL CANALE</h2>                                   
             <div class="social-grid" style="grid-template-columns: 1fr 1fr;">
-                <a href="https://streamelements.com/simooo_tv/tip" target="_blank" class="social-item">
+                <a href="https://streamelements.com/simooo_tv/tip" target="_blank" rel="noopener noreferrer" class="social-item">
                     <i class="fab fa-paypal" style="color:#00457C;"></i><span>PayPal</span>
                 </a>
-                <a href="https://twitch.tv/simooo_tv/subscribe" target="_blank" class="social-item">
+                <a href="https://twitch.tv/simooo_tv/subscribe" target="_blank" rel="noopener noreferrer" class="social-item">
                     <i class="fab fa-twitch" style="color:#9146FF;"></i><span>Abbonati</span>
                 </a>
             </div>
@@ -1364,24 +2337,24 @@
             <div class="prime-tutorial">
                 <p>Se hai <strong>Amazon Prime</strong>, puoi abbonarti gratuitamente!</p>
                 <ol>
-                    <li>Vai su <a href="https://gaming.amazon.com/" target="_blank" style="color:#00A8E1;">Prime Gaming</a></li>
+                    <li>Vai su <a href="https://gaming.amazon.com/" target="_blank" rel="noopener noreferrer" style="color:#00A8E1;">Prime Gaming</a></li>
                     <li>Collega il tuo account Amazon</li>
                     <li>Seleziona il canale Twitch</li>
                     <li>Clicca <strong>Usa abbonamento Prime</strong>!</li>
                 </ol>
             </div>
-            <a href="https://twitch.tv/simooo_tv/subscribe" target="_blank" class="btn-live btn-explore" style="width: 100%; margin-bottom: 10px;">ABBONATI ORA</a>
+            <a href="https://twitch.tv/simooo_tv/subscribe" target="_blank" rel="noopener noreferrer" class="btn-live btn-explore" style="width: 100%; margin-bottom: 10px;">ABBONATI ORA</a>
             <button class="close-modal" onclick="togglePrimeModal()">TORNA INDIETRO</button>
         </div>
     </div>
 
     <nav>
         <ul class="nav-links">
-            <li><a href="https://instagram.com/simooo_tv" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a></li>
-            <li><a href="https://twitch.tv/simooo_tv" target="_blank" title="Twitch"><i class="fab fa-twitch"></i></a></li>
-            <li><a href="https://tiktok.com/@simooo_tv" target="_blank" title="TikTok"><i class="fab fa-tiktok"></i></a></li>
-            <li><a href="https://youtube.com/@simooo_tv" target="_blank" title="YouTube"><i class="fab fa-youtube"></i></a></li>
-            <li><a href="https://discord.gg/837xJyh6Ap" target="_blank" title="Discord"><i class="fab fa-discord"></i></a></li>
+            <li><a href="https://instagram.com/simooo_tv" target="_blank" rel="noopener noreferrer" title="Instagram"><i class="fab fa-instagram"></i></a></li>
+            <li><a href="https://twitch.tv/simooo_tv" target="_blank" rel="noopener noreferrer" title="Twitch"><i class="fab fa-twitch"></i></a></li>
+            <li><a href="https://tiktok.com/@simooo_tv" target="_blank" rel="noopener noreferrer" title="TikTok"><i class="fab fa-tiktok"></i></a></li>
+            <li><a href="https://youtube.com/@simooo_tv" target="_blank" rel="noopener noreferrer" title="YouTube"><i class="fab fa-youtube"></i></a></li>
+            <li><a href="https://discord.gg/837xJyh6Ap" target="_blank" rel="noopener noreferrer" title="Discord"><i class="fab fa-discord"></i></a></li>
         </ul>
         <div class="logo-text">SIMOOO_TV</div>
         <div class="nav-right">
@@ -1389,20 +2362,20 @@
         </div>
     </nav>
 
-    <section class="games-database">
+    <section class="games-database" id="home">
         <div class="db-title">🎮 GIOCHI IN STREAM 🎮</div>
         <div class="marquee-wrapper">
             <div class="marquee-content">
-                <img src="img/fortnite.png" alt="Fortnite">
-                <img src="img/rocket_league.jpg" alt="Rocket League">
-                <img src="img/among_us.png" alt="Among Us">
-                <img src="img/r6.png" alt="Rainbow Six Siege">
-                <img src="img/brawl_stars_logo.png" alt="Brawl Stars">
-                <img src="img/fortnite.png" alt="Fortnite">
-                <img src="img/rocket_league.jpg" alt="Rocket League">
-                <img src="img/among_us.png" alt="Among Us">
-                <img src="img/r6.png" alt="Rainbow Six Siege">
-                <img src="img/brawl_stars_logo.png" alt="Brawl Stars">
+                <img src="img/fortnite.png" alt="Fortnite" loading="lazy">
+                <img src="img/rocket_league.jpg" alt="Rocket League" loading="lazy">
+                <img src="img/among_us.png" alt="Among Us" loading="lazy">
+                <img src="img/r6.png" alt="Rainbow Six Siege" loading="lazy">
+                <img src="img/brawl_stars_logo.png" alt="Brawl Stars" loading="lazy">
+                <img src="img/fortnite.png" alt="Fortnite" loading="lazy">
+                <img src="img/rocket_league.jpg" alt="Rocket League" loading="lazy">
+                <img src="img/among_us.png" alt="Among Us" loading="lazy">
+                <img src="img/r6.png" alt="Rainbow Six Siege" loading="lazy">
+                <img src="img/brawl_stars_logo.png" alt="Brawl Stars" loading="lazy">
             </div>
         </div>
     </section>
@@ -1411,7 +2384,7 @@
         <div class="hero-content">
             <div class="status-container">
                 <div id="live-badge" class="live-badge"><i class="fab fa-twitch"></i> LIVE</div>
-                <a href="https://twitch.tv/simooo_tv" target="_blank" id="status-btn" class="btn-live">Caricamento...</a>
+                <a href="https://twitch.tv/simooo_tv" target="_blank" rel="noopener noreferrer" id="status-btn" class="btn-live">Caricamento...</a>
             </div>
             
             <div class="title-wrapper">
@@ -1424,11 +2397,11 @@
             </div>
             
             <div class="hero-socials">
-                <a href="https://instagram.com/simooo_tv" target="_blank"><i class="fab fa-instagram"></i></a>
-                <a href="https://twitch.tv/simooo_tv" target="_blank"><i class="fab fa-twitch"></i></a>
-                <a href="https://tiktok.com/@simooo_tv" target="_blank"><i class="fab fa-tiktok"></i></a>
-                <a href="https://youtube.com/@simooo_tv" target="_blank"><i class="fab fa-youtube"></i></a>
-                <a href="https://discord.gg/837xJyh6Ap" target="_blank"><i class="fab fa-discord"></i></a>
+                <a href="https://instagram.com/simooo_tv" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="https://twitch.tv/simooo_tv" target="_blank" rel="noopener noreferrer" aria-label="Twitch"><i class="fab fa-twitch"></i></a>
+                <a href="https://tiktok.com/@simooo_tv" target="_blank" rel="noopener noreferrer" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+                <a href="https://youtube.com/@simooo_tv" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                <a href="https://discord.gg/837xJyh6Ap" target="_blank" rel="noopener noreferrer" aria-label="Discord"><i class="fab fa-discord"></i></a>
             </div>
 
             <div class="hero-support-btn">
@@ -1441,11 +2414,27 @@
         </div>
     </section>
 
-    <section class="info-section">
+    <!-- Stats Section -->
+    <section class="stats-section" id="stats">
+        <div class="stat-item">
+            <div class="stat-number" data-target="5000">0</div>
+            <p>Follower Twitch</p>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number" data-target="3300">0</div>
+            <p>Follower TikTok</p>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number" data-target="370">0</div>
+            <p>Follower Instagram</p>
+        </div>
+    </section>
+
+    <section class="info-section" id="canale">
         <div class="info-card ig-featured-card">
             <h2 class="ig-featured-title"><i class="fab fa-instagram"></i> INSTAGRAM</h2>
             <div class="ig-profile-header">
-                <img src="img/logo.png" alt="Avatar IG" class="ig-avatar-large">
+                <img src="img/logo.png" alt="Avatar IG" class="ig-avatar-large" loading="lazy">
                 <div class="ig-user-info">
                     <h3>simooo_tv <i class="fas fa-check-circle" style="color: #1DA1F2;"></i></h3>
                     <div class="ig-stats">
@@ -1462,7 +2451,7 @@
                     <p>🚀 YouTube 300+</p>
                     <p>🚀 TikTok 3,3K+</p>
                 </div>
-                <a href="https://instagram.com/simooo_tv" target="_blank" class="ig-btn-large"><i class="fab fa-instagram"></i> SEGUI</a>
+                <a href="https://instagram.com/simooo_tv" target="_blank" rel="noopener noreferrer" class="ig-btn-large"><i class="fab fa-instagram"></i> SEGUI</a>
             </div>
         </div>
 
@@ -1498,20 +2487,98 @@
         </div>
     </section>
 
+  
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+        <h2>❓ Domande Frequenti</h2>
+        <div class="faq-container">
+            <div class="faq-item">
+                <button class="faq-question" aria-expanded="false">
+                    <span>A che orari fai stream?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="faq-answer">
+                    <p>Faccio stream alle 14:30-19:00 e 20:45-00:00 tutti i giorni! Seguimi sui social per notifiche live in tempo reale.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question" aria-expanded="false">
+                    <span>Posso abbonarmi gratuitamente?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="faq-answer">
+                    <p>Sì! Se hai Amazon Prime, puoi abbonarti gratis con Prime Gaming. Clicca il pulsante "ABBONATI GRATIS" nel sito.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question" aria-expanded="false">
+                    <span>Quali giochi streammi?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="faq-answer">
+                    <p>Principalmente Fortnite, Rocket League, Among Us, Rainbow Six Siege e Brawl Stars. Ma mi piace provare sempre nuovi giochi!</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question" aria-expanded="false">
+                    <span>Come raggiungerti?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="faq-answer">
+                    <p>Mi trovi su Twitch, Instagram, TikTok, YouTube e Discord. Iscriviti e attiva le notifiche per non perdere nessun stream!</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question" aria-expanded="false">
+                    <span>Che specs hai?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="faq-answer">
+                    <p>Ho un i7-14700k, RTX 5070 Ti, 64GB RAM e monitor 144hz. Puoi vedere tutti i dettagli nella sezione "Postazione Gaming" sopra.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <section class="calendar-section">
-        <div class="db-title"> CALENDARIO </div>
+        <div class="db-title">📅 CALENDARIO</div>
         <div class="calendar-container">
-            <img src="img/calendario.jpg" alt="Calendario" class="calendar-img">
+            <img src="img/calendario.jpg" alt="Calendario stream" class="calendar-img" loading="lazy">
         </div>
     </section>
 
     <footer>
         <p>© 2026 SIMOOO_TV | SITO UFFICIALE®</p>
-        <p>Powered by peppe.</p>
+        <p>Powered by peppe. | Design & Development</p>
     </footer>
 
     <script src="https://embed.twitch.tv/embed/v1.js"></script>
     <script>
+        // QA Data - MODIFICA QUI LE RISPOSTE
+        const qaData = [
+            {
+                question: "❓ A che orari fai stream?",
+                answer: "Faccio stream alle 14:30-19:00 e 20:45-00:00 TUTTI I GIORNI! 🔴"
+            },
+            {
+                question: "🎮 Quali giochi streammi?",
+                answer: "Fortnite, Rocket League, Among Us, R6 Siege e Brawl Stars! 🎯"
+            },
+            {
+                question: "💰 Posso abbonarmi gratis?",
+                answer: "Sì con Amazon Prime Gaming! Clicca 'ABBONATI GRATIS' 👑"
+            },
+            {
+                question: "📊 Quali sono le tue specs?",
+                answer: "i7-14700K, RTX 5070 Ti, 64GB RAM, 144Hz monitor! 🔥"
+            },
+            {
+                question: "🎯 Quali sono i tuoi progetti?",
+                answer: "Merchandise, Torneo Gaming e molto altro! Stay tuned 🚀"
+            }
+        ];
+
         // === LOADING SCREEN ===
         function createParticles() {
             const container = document.getElementById('particlesContainer');
@@ -1551,6 +2618,14 @@
             }
         }, 300);
 
+        setTimeout(() => {
+            if (document.getElementById('loadingScreen').classList.contains('hidden') === false) {
+                document.getElementById('loadingScreen').classList.add('hidden');
+                document.body.style.overflow = 'auto';
+                showWelcome();
+            }
+        }, 3500);
+
         window.addEventListener('load', () => {
             percentage = 100;
             percentageDisplay.textContent = '100%';
@@ -1558,7 +2633,8 @@
             setTimeout(() => {
                 document.getElementById('loadingScreen').classList.add('hidden');
                 document.body.style.overflow = 'auto';
-            }, 3000);
+                showWelcome();
+            }, 1500);
         });
 
         // === TWITCH EMBED ===
@@ -1591,6 +2667,7 @@
                 btn.onclick = null;
                 title.innerHTML = 'SIMOOO<span>TV</span><span class="live-text">È IN ONDA ORA 🎮</span>';
                 countdownWrapper.style.display = 'none';
+                showToast('Stream in live!', 'success');
             } else {
                 badge.style.display = 'none';
                 btn.textContent = ' SCOPRI I SOCIAL';
@@ -1607,8 +2684,6 @@
             try {
                 const response = await fetch('https://decapi.me/twitch/uptime?channel=simooo_tv');
                 const text = await response.text();
-                
-                // Se ritorna un errore o "offline", allora è offline
                 const isLive = !text.includes('offline') && text.length > 0 && isNaN(text) === false;
                 updateUI(isLive);
             } catch (e) {
@@ -1617,9 +2692,113 @@
             }
         }
 
-        // Controlla ogni 10 secondi
         checkLiveStatus();
-        setInterval(checkLiveStatus, 10000);
+        let statusCheckInterval = setInterval(checkLiveStatus, 10000);
+
+        window.addEventListener('beforeunload', () => {
+            clearInterval(statusCheckInterval);
+        });
+
+        // === WELCOME MODAL ===
+        function showWelcome() {
+            const welcomeShown = localStorage.getItem('welcomeShown');
+            if (!welcomeShown) {
+                document.getElementById('welcomeModal').classList.add('show');
+                localStorage.setItem('welcomeShown', 'true');
+            }
+        }
+
+        function closeWelcome() {
+            document.getElementById('welcomeModal').classList.remove('show');
+        }
+
+        // === CHAT WIDGET QA ===
+        function toggleChat() {
+            document.getElementById('chatWidget').classList.toggle('active');
+        }
+
+        function selectQA(index) {
+            const data = qaData[index];
+            const messagesContainer = document.querySelector('.chat-messages');
+            
+            // Aggiungi domanda
+            let userMsg = document.createElement('p');
+            userMsg.className = 'chat-msg user';
+            userMsg.textContent = data.question;
+            messagesContainer.appendChild(userMsg);
+            
+            // Aggiungi risposta con delay
+            setTimeout(() => {
+                let botMsg = document.createElement('p');
+                botMsg.className = 'chat-msg bot';
+                botMsg.textContent = data.answer;
+                messagesContainer.appendChild(botMsg);
+                messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            }, 500);
+            
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        // === TOAST NOTIFICATIONS ===
+        function showToast(message, type = 'info') {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            const icons = {
+                success: 'check-circle',
+                error: 'exclamation-circle',
+                info: 'info-circle'
+            };
+            toast.innerHTML = `
+                <i class="fas fa-${icons[type]} toast-icon"></i>
+                <span>${message}</span>
+            `;
+            container.appendChild(toast);
+            setTimeout(() => {
+                if (toast.parentElement) toast.remove();
+            }, 4000);
+        }
+
+        // === ANIMATED STATS COUNTER ===
+        function countUp(element, target) {
+            let current = 0;
+            const increment = target / 30;
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    element.textContent = target.toLocaleString();
+                    clearInterval(timer);
+                } else {
+                    element.textContent = Math.floor(current).toLocaleString();
+                }
+            }, 30);
+        }
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !entry.target.animated) {
+                    const target = parseInt(entry.target.dataset.target);
+                    countUp(entry.target, target);
+                    entry.target.animated = true;
+                }
+            });
+        }, { threshold: 0.5 });
+
+        document.querySelectorAll('.stat-number').forEach(el => observer.observe(el));
+
+        // === FAQ ACCORDION ===
+        document.querySelectorAll('.faq-question').forEach(button => {
+            button.addEventListener('click', () => {
+                const item = button.closest('.faq-item');
+                const wasActive = item.classList.contains('active');
+                
+                document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('active'));
+                
+                if (!wasActive) {
+                    item.classList.add('active');
+                }
+            });
+        });
 
         // === MODALS ===
         function toggleModal() { document.getElementById('socialModal').classList.toggle('active'); }
@@ -1636,11 +2815,23 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
+        function scrollToSection(id) {
+            const element = document.getElementById(id);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
         // Chiudi modali cliccando fuori
         document.querySelectorAll('.modal-overlay').forEach(m => {
             m.addEventListener('click', (e) => {
                 if (e.target === m) m.classList.remove('active');
             });
+        });
+
+        // Chiudi welcome modal cliccando fuori
+        document.getElementById('welcomeModal').addEventListener('click', (e) => {
+            if (e.target.id === 'welcomeModal') closeWelcome();
         });
     </script>
 </body>
